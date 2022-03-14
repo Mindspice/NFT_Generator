@@ -144,7 +144,7 @@ public class Generator {
 
     }
 
-    //Imports a whole directory of images to populate a layer. 
+    //Imports a whole directory of images to populate a layer.
     @javafx.fxml.FXML
     public void importLayerDir(ActionEvent actionEvent)  {
 
