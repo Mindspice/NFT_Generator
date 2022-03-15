@@ -125,7 +125,7 @@ are using Layer Occurrence and Image Max.
 Project and all code is free to use in both a hobbyist and profession setting. Project is open source and changes can be 
 made to suit your needs. You are free to keep these changes to yourself, though sharing is encouraged.
 
-*Sell of any project derived from this codebase is prohibited.*
+*Sale of any project derived from this codebase is prohibited.*
 
 
 
