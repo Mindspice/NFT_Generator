@@ -142,7 +142,7 @@ https://okra.space/nft
 Project and all code is free to use in both a hobbyist and profession setting. Project is open source and changes can be 
 made to suit your needs. You are free to keep these changes to yourself, though sharing is encouraged.
 
-*Sale of any project derived from this codebase is prohibited.*
+*Repackaging codebase or a build of it for sale is prohibited*
 
 
 
