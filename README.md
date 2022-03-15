@@ -37,8 +37,6 @@ To mirror the IDE set up I used:
   - "--module-path ${PATH_TO_FX} --add-modules javafx.fxml,javafx.controls,javafx.graphics" without quotes.
 - Set up your build artifact like this https://www.youtube.com/watch?v=F8ahBtXkQzU to export as jar.
 
-I'm not sure if the path/vm options are needed just to build but that how my IDE was set up for testing.
-
 
 # How To Use
 
