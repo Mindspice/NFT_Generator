@@ -290,6 +290,11 @@
                                                       <Insets left="344.0" />
                                                    </HBox.margin>
                                                 </Button>
+                                                <Label alignment="BOTTOM_RIGHT" prefHeight="17.0" prefWidth="276.0" text="2022  MindSpice™ By Okra" textFill="#1b7903">
+                                                   <HBox.margin>
+                                                      <Insets left="100.0" top="25.0" />
+                                                   </HBox.margin>
+                                                </Label>
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="14.0" />
