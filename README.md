@@ -12,6 +12,8 @@ Project is fairly bare bones and ugly, but I needed a generator myself and decid
 source generator with a GUI to make it easy for people to generate their own NFT collections without scripting knowledge 
 or paying the ridiculous amounts that some services that provide near the same functionality charge.
 
+![Screenshot](screenshot/ss.jpeg)
+
 # Requirments
 
 To run the jar file you will need openJDK 17 installed (oracleJDK should work fine as well). To have the modern java JRE.
