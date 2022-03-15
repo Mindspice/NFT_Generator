@@ -120,6 +120,21 @@ are using Layer Occurrence and Image Max.
 
 - Serialization of project settings to allow for saving and opening in progress collection edits.
 - Scripts to parse trait csv and generate Ethereum, Solana and Chia metadata.
+- Save with Enter instead of solely the Save Button
+- Ability to toggle other layers for duplicate disregard
+
+#Donate
+
+If you like the project feel free to donate @
+
+XCH: xch1zhsffm7up4egsyeut422f3n0n5dcez4lqzy0sr7gzdfj9rqa6v8qnlu4fc
+
+ETH: 0xAD18f86Bc1125297e9E3DF30bfCc1fa3173384cf
+
+Or you can always purchase an Okra Folk NFT redemption token to contribute and get something in return.
+
+https://okra.space/nft
+
 
 
 # Terms of Use
