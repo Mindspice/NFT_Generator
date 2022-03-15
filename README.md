@@ -12,13 +12,13 @@ Project is fairly bare bones and ugly, but I needed a generator myself and decid
 source generator with a GUI to make it easy for people to generate their own NFT collections without scripting knowledge 
 or paying the ridiculous amounts that some services that provide near the same functionality charge.
 
-#Requirments
+# Requirments
 
 To run the jar file you will need openJDK 17 installed (oracleJDK should work fine as well). To have the modern java JRE.
 
 A wrapped .exe with the JRE included is available in releases.
 
-###Building
+### Building
 
 If you wish to build from source, ideally you would want a modern IntelliJ release, set up for javaFX 17. Maven wasn't used 
 for the project as I had some issues occur (that I later figured out) with javafx using it. In later releases I will
@@ -38,9 +38,9 @@ To mirror the IDE set up I used:
 I'm not sure if the path/vm options are needed just to build but that how my IDE was set up for testing.
 
 
-#How To Use
+# How To Use
 
-###Layers
+### Layers
 Opens with a fresh layout, once a layer is added it will generate a default collection name and attributes which should be
 replaced before generation.
 
@@ -59,7 +59,7 @@ Example: If set to 4 a layer will occur every 4 NFT generations.
 
 *Be sure to save for every layer change before switch to a new layer*
 
-###Images
+### Images
 
 Import Files is used to import all files in a directory into a layer.
 
@@ -79,7 +79,7 @@ File lets you replace and image file and keep all the existing settings for that
 
 *Be sure to save for every image change before switch to a new image*
 
-###Collection
+### Collection
 
 Collection Name isn't really used at the moment, but will be used once saving is added.
 
@@ -91,7 +91,7 @@ Output Directory is the directory to output the finished generation files.
 
 Collection Size is the size of the collection.
 
-###Generation
+### Generation
 
 No Duplicates can be selected to avoid duplicate generation.
 
@@ -104,7 +104,7 @@ Stop will stop a generation in progress.
 
 Generate will begin the final generation process.
 
-###Things to consider
+## Things to consider
 
 You'll want to make sure that your layer occurrences and image max values, as well as images/layers in general are aligned
 with your collection size. Generation will stop after generated + Collection Size * 2 iterations of generation attempts occur.
@@ -114,18 +114,18 @@ This isn't and issue if you have enough unqiue elements to fit the collection si
 This can easily be calculated by multiplying the total amount of images in each layer. But will be more convoluted if you
 are using Layer Occurrence and Image Max.
 
-#Future Updates
+# Future Updates
 
 - Serialization of project settings to allow for saving and opening in progress collection edits.
 - Scripts to parse trait csv and generate Ethereum, Solana and Chia metadata.
 
 
-#License 
+# Terms of Use
 
 Project and all code is free to use in both a hobbyist and profession setting. Project is open source and changes can be 
-made to suit your needs.
+made to suit your needs. You are free to keep these changes to yourself, though sharing is encouraged.
 
-*Sell of any project containing the original or edited code is prohibited.*
+*Sell of any project derived from this codebase is prohibited.*
 
 
 
