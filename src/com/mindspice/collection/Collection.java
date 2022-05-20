@@ -60,7 +60,7 @@ public class Collection {
     }
 
     // SETTERS
-    public void setName(String ame) {
+    public void setName(String name) {
         this.name = name;
     }
 

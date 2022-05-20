@@ -28,7 +28,7 @@ public class Util {
             return false;
         }
     }
-
+    //Enum would be better, but I'm lazy and did it this way from the start for some reason
     public static void error(String type, String input) {
 
         Alert error = new Alert(Alert.AlertType.ERROR);
@@ -50,6 +50,7 @@ public class Util {
                 error.setContentText("Generation Stalled. Likely All Unique Combinations Have Been Exhausted");
             case "layer":
                 error.setContentText("Create A Layer First");
+
         }
         error.showAndWait();
     }
