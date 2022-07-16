@@ -1,14 +1,13 @@
-package com.mindspice.collection;
+package collection;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NFT {
-    String name;
-    List<String> traitList = new ArrayList<>();
-    String id;
-    File finalImage;
+    public String name;
+    public List<String> traitList;
+    public String id;
+    public File finalImage;
 
     public NFT(String name, List<String> traits, boolean disregardDB) {
         this.name = name;
@@ -20,13 +19,13 @@ public class NFT {
         }
     }
 
-    private void setName(String name) {
-        this.name = name;
-    }
-
-    public String getID() {
-        return id;
-    }
+//    private void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getID() {
+//        return id;
+//    }
 
     private String genId(int index) {
         StringBuilder sb = new StringBuilder();
@@ -36,16 +35,16 @@ public class NFT {
         }
         return sb.toString();
     }
-
-    public List getTraitList() {
-        return traitList;
-    }
-
-    public File getFinalImage() {
-        return finalImage;
-    }
-
-    public void setFinalImage(File finalImage) {
-        this.finalImage = finalImage;
-    }
 }
+//    public List getTraitList() {
+//        return traitList;
+//    }
+//
+//    public File getFinalImage() {
+//        return finalImage;
+//    }
+//
+//    public void setFinalImage(File finalImage) {
+//        this.finalImage = finalImage;
+//    }
+//}

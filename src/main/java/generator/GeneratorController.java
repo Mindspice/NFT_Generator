@@ -1,13 +1,11 @@
 package generator;
-
-
-import com.mindspice.collection.Collection;
-import com.mindspice.collection.NFT;
+import collection.Collection;
 import imagefile.ImageFile;
 import javafx.embed.swing.SwingFXUtils;
 import layer.Layer;
 import logic.*;
 import main.Main;
+import collection.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,10 +29,10 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 
-public class Generator {
+public class GeneratorController {
 
-    public TextField link_layer;
-    public TableColumn image_table_link_layer;
+    public Button regenerate;
+    public Button collection_settings;
     @javafx.fxml.FXML
     private ImageView image_window;
     @javafx.fxml.FXML
@@ -99,26 +97,26 @@ public class Generator {
     }
 
     private void setImageInFocus() {
-        image_name.setText(imageInFocus.getName());
-        image_weight.setText(Double.toString(imageInFocus.getWeight()));
-        image_max.setText(Integer.toString(imageInFocus.getMax()));
+        image_name.setText(imageInFocus.name);
+        image_weight.setText(Double.toString(imageInFocus.weight));
+        image_max.setText(Integer.toString(imageInFocus.max));
         image_file.setText(imageInFocus.getFileName());
-        mute_group.setText(Integer.toString(imageInFocus.getMuteGroup()));
-        displayImage(imageInFocus.getImage());
+        mute_group.setText(Integer.toString(imageInFocus.muteGroup));
+        displayImage(imageInFocus.image);
     }
 
     /* Save functions for settings(attribute fields) */
 
     @javafx.fxml.FXML
     public void saveImage(ActionEvent actionEvent) {
-        imageInFocus.setName(image_name.getText());
+        imageInFocus.name = image_name.getText();
 
         if (logic.Util.isDouble(image_weight.getText()) && logic.Util.isInt(image_max.getText())) {
-            imageInFocus.setWeight(Double.valueOf(image_weight.getText()));
-            imageInFocus.setMax(Integer.valueOf(image_max.getText()));
-            imageInFocus.setMuteGroup(Integer.valueOf(mute_group.getText()));
+            imageInFocus.weight = Double.parseDouble(image_weight.getText());
+            imageInFocus.max = Integer.parseInt(image_max.getText());
+            imageInFocus.muteGroup = Integer.parseInt(mute_group.getText());
 
-            if (Double.valueOf(image_weight.getText()) > 1.0 || Double.valueOf(image_weight.getText()) < 0.0) {
+            if (Double.parseDouble(image_weight.getText()) > 1.0 || Double.parseDouble(image_weight.getText()) < 0.0) {
                 logic.Util.error("value", image_weight.getText());
             }
         }
@@ -130,7 +128,7 @@ public class Generator {
         layerInFocus.setName(layer_name.getText());
 
         if (Util.isInt(layer_number.getText())) {
-            layerInFocus.setNumber(Integer.valueOf(layer_number.getText()));
+            layerInFocus.setNumber(Integer.parseInt(layer_number.getText()));
         }
         sortLayers();
         layer_table.refresh();
@@ -138,14 +136,12 @@ public class Generator {
 
     @javafx.fxml.FXML
     public void saveCollection(ActionEvent actionEvent) {
-        collection.setName(collection_name.getText());
-        collection.setPrefix(collection_prefix.getText().trim());
         if (Util.isInt(collection_size.getText()) && Util.isInt(collection_width.getText())
                 && Util.isInt(collection_height.getText())) {
 
-            collection.setSize(Integer.valueOf(collection_size.getText()));
-            collection.setWidth(Integer.valueOf(collection_width.getText()));
-            collection.setHeight(Integer.valueOf(collection_height.getText()));
+            collection.size = Integer.parseInt(collection_size.getText());
+            collection.width = Integer.parseInt(collection_width.getText());
+            collection.height = Integer.parseInt(collection_height.getText());
         }
 
     }
@@ -184,18 +180,18 @@ public class Generator {
         if (imageInFocus != null) {
             try {
                 FileChooser fileChooser = new FileChooser();
-                File defaultDirectory = new File(imageInFocus.getFile().getParent());
+                File defaultDirectory = new File(imageInFocus.file.getParent());
                 fileChooser.setInitialDirectory(defaultDirectory);
                 fileChooser.getExtensionFilters().add(extFilter);
                 File file = fileChooser.showOpenDialog(Main.getStage());
-                imageInFocus.setImage(ImageIO.read(file));
-                imageInFocus.setFile(file);
-                imageInFocus.setName(file.getName());
+                imageInFocus.image = ImageIO.read(file);
+                imageInFocus.file = file;
+                imageInFocus.name = file.getName();
             } catch(Exception e){
                 Util.exception("file");
             }
             image_table.refresh();
-            displayImage(imageInFocus.getImage());
+            displayImage(imageInFocus.image);
         }
     }
 
@@ -231,13 +227,10 @@ public class Generator {
             layer_table.setItems(layerList);
             layer_table_number.setCellValueFactory(new PropertyValueFactory("Number"));
             layer_table_name.setCellValueFactory(new PropertyValueFactory("Name"));
-            layer_table_occur.setCellValueFactory(new PropertyValueFactory("Occurrence"));
             layer_table_amount.setCellValueFactory(new PropertyValueFactory("Amount"));
-            collection_name.setText(collection.getName());
-            collection_prefix.setText(collection.getPrefix());
-            collection_size.setText(Integer.toString(collection.getSize()));
-            collection_width.setText(Integer.toString(collection.getWidth()));
-            collection_height.setText(Integer.toString(collection.getHeight()));
+            collection_size.setText(Integer.toString(collection.size));
+            collection_width.setText(Integer.toString(collection.width));
+            collection_height.setText(Integer.toString(collection.height));
         }
         sortLayers();
         setLayerInFocus();
@@ -256,14 +249,14 @@ public class Generator {
     public void setOutputDir(ActionEvent actionEvent) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File directory = directoryChooser.showDialog(Main.getStage());
-        collection.setOutputDirectory(directory);
+        collection.outputDirectory = directory;
         collection_directory.setText(directory.toString());
     }
 
     // Generates a random test nft to image display window
     @FXML
     public void generateTest(ActionEvent actionEvent) throws IOException {
-        BufferedImage nftFile = new BufferedImage(collection.getWidth(), collection.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage nftFile = new BufferedImage(collection.width, collection.height, BufferedImage.TYPE_INT_ARGB);
         Graphics graphics = nftFile.getGraphics();
 
         HashMap<Integer,Boolean> muteTable = new HashMap<>();
@@ -275,18 +268,18 @@ public class Generator {
 
                 // mute group
                 int i = 0;
-                if (image.getMuteGroup() != 0 ){
-                    while(muteTable.get(image.getMuteGroup()) != null) {
+                if (image.muteGroup != 0 ){
+                    while(muteTable.get(image.muteGroup) != null) {
                         image = WeightedRandom.getWeightedRandom(l.getImageList());
                         i++;
-                        if (i == collection.getSize() / 4) {
+                        if (i == collection.size / 4) {
                             return;
                         }
                     }
                 }
-                muteTable.put(image.getMuteGroup(), true);
+                muteTable.put(image.muteGroup, true);
 
-                graphics.drawImage(image.getImage(), 0, 0, null);
+                graphics.drawImage(image.image, 0, 0, null);
             }
         }
         graphics.dispose();
@@ -335,15 +328,15 @@ public class Generator {
                     layerNames.add(l.getName());
                 }
                 try {
-                    writeDataHeader(collection.getOutputDirectory(), collection.getName(), layerNames);
+                    writeDataHeader(collection.outputDirectory, collection.name, layerNames);
                 } catch (FileNotFoundException e) {
                     Util.exception("file");
                     e.printStackTrace();
                 }
 
-                while (iter <= collection.getSize() && !stopGen) {
+                while (iter <= collection.size && !stopGen) {
                     List<String> traitList = new ArrayList<>();
-                    BufferedImage nftFile = new BufferedImage(collection.getWidth(), collection.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                    BufferedImage nftFile = new BufferedImage(collection.width, collection.height, BufferedImage.TYPE_INT_ARGB);
                     Graphics graphics = nftFile.getGraphics();
                     HashMap<Integer,Boolean> muteTable = new HashMap<>();
 
@@ -353,32 +346,32 @@ public class Generator {
                             ImageFile image = WeightedRandom.getWeightedRandom(l.getImageList());
                             int i = 0;
                             // mute group
-                            if (image.getMuteGroup() != 0  && i < collection.getSize() / 4){
-                                while(muteTable.get(image.getMuteGroup()) != null) {
+                            if (image.muteGroup != 0  && i < collection.size / 4){
+                                while(muteTable.get(image.muteGroup) != null) {
                                     image = WeightedRandom.getWeightedRandom(l.getImageList());
                                     i++;
                                 }
                             }
-                            muteTable.put(image.getMuteGroup(), true);
+                            muteTable.put(image.muteGroup, true);
 
 
                             int j = 0; //handles the iterations of while loop to avoid endless, /4 is kind of random but should work
-                            while(image.getMax() != 0 && image.getMax() <= image.getCount() && j < collection.getSize() / 4){
+                            while(image.max != 0 && image.max <= image.count && j < collection.size / 4){
                                 image = WeightedRandom.getWeightedRandom(l.getImageList());
                                 j++;
                             }
-                            graphics.drawImage(image.getImage(), 0, 0, null);
-                            traitList.add(image.getName());
+                            graphics.drawImage(image.image, 0, 0, null);
+                            traitList.add(image.name);
                             image.incCount();
                         }
                     }
 
                     graphics.dispose();
-                    NFT nft = new NFT(collection.getPrefix() + "_" + iter, traitList, generate_disregard_bg.isSelected());
+                    NFT nft = new NFT(collection.prefix + "_" + iter, traitList, generate_disregard_bg.isSelected());
 
                     if (generate_no_duplicates.isSelected()) {
-                        if (dupeTable.get(nft.getID()) == null) {
-                            dupeTable.put(nft.getID(), 1);
+                        if (dupeTable.get(nft.id) == null) {
+                            dupeTable.put(nft.id, 1);
                             writeImageFile(nft, nftFile, iter);
                             ++iter;
 
@@ -388,7 +381,7 @@ public class Generator {
                         ++iter;
                     }
 
-                    if (loop > (iter + (collection.getSize() * 2))) {  //Check for Stall (Too many duplicate generations)
+                    if (loop > (iter + (collection.size * 2))) {  //Check for Stall (Too many duplicate generations)
                         stopGen = true;
                         blockGen = false;
                         resetImageCount();
@@ -397,7 +390,7 @@ public class Generator {
                         break;
                     }
                     ++loop;
-                    updateProgress(iter, collection.getSize());
+                    updateProgress(iter, collection.size);
                 }
 
                 resetImageCount();
@@ -416,10 +409,10 @@ public class Generator {
     }
 
     private void sortLayers() {
-        Collections.sort(layerList, new Comparator<Layer>() {
+        layerList.sort(new Comparator<Layer>() {
             @Override
             public int compare(Layer l1, Layer l2) {
-                return Integer.valueOf(l1.getNumber()).compareTo(Integer.valueOf(l2.getNumber()));
+                return Integer.compare(l1.getNumber(), l2.getNumber());
             }
         });
     }
@@ -427,12 +420,12 @@ public class Generator {
     // Saves(writes) final files to disk
     private void writeImageFile(NFT nft, BufferedImage nftFile, int iter) {
         try {
-            File finalImage = new File(collection.getOutputDirectory(), collection.getPrefix()  + iter + ".png");
+            File finalImage = new File(collection.outputDirectory, collection.prefix  + iter + ".png");
             ImageIO.write(nftFile, "PNG", finalImage);
-            nft.setFinalImage(finalImage.getAbsoluteFile());
+            nft.finalImage = finalImage.getAbsoluteFile();
 
-            if (writeDataFile(collection.getOutputDirectory(), collection.getName(),
-                    finalImage.getCanonicalFile().toString(), nft.getTraitList())) {
+            if (writeDataFile(collection.outputDirectory, collection.name,
+                    finalImage.getCanonicalFile().toString(), nft.traitList)) {
                 throw new IOException();
             }
             System.out.println(finalImage.getAbsoluteFile());
@@ -472,5 +465,4 @@ public class Generator {
             }
         }
     }
-
 }

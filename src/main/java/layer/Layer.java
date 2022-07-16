@@ -43,7 +43,7 @@ public  class Layer {
 
     public ImageFile getImage(String name) {
         for (ImageFile i : imageList) {
-            if (i.getName().equals(name)) {
+            if (i.name.equals(name)) {
                 return i;
             }
         }
