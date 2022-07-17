@@ -15,7 +15,6 @@ import java.util.List;
 
 public  class Layer {
     private String name;
-    private SimpleStringProperty nname = new SimpleStringProperty();
     private int number;
     private int occurrence;
     private int amount;
@@ -23,19 +22,11 @@ public  class Layer {
 
 
 
-    public SimpleStringProperty getNname() {
-        return nname;
-    }
-
-    public void setNname(String nname) {
-        this.nname.set(nname);
-    }
 
     public Layer(String name, int layerNumber, int occurrence) {
         this.name = name;
         this.number = layerNumber;
         this.occurrence = occurrence;
-        this.nname.set(name);
     }
     public void addImage(String name, File image, double weight, int max) throws IOException {
             imageList.add(new ImageFile(name, image, weight, max));
@@ -43,7 +34,7 @@ public  class Layer {
 
     public ImageFile getImage(String name) {
         for (ImageFile i : imageList) {
-            if (i.name.equals(name)) {
+            if (i.getName().equals(name)) {
                 return i;
             }
         }

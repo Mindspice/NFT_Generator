@@ -1,5 +1,6 @@
 package json;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JsonContainers {
@@ -10,14 +11,14 @@ public class JsonContainers {
         public String description;
         public final String minting_tool = "SpiceGen_v1 | https://mindspice.io";
         public boolean sensitive_content;
-        public List<Trait> attributes;
+        public List<Trait> attributes = new ArrayList<>();
         public Collection collection;
     }
 
     public static class Collection {
         public String name;
         public String id;
-        public List<Attribute> attributes;
+        public List<Attribute> attributes = new ArrayList<>();
     }
 
     public static class Trait {

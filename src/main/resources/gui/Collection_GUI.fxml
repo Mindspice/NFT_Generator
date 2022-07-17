@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="collection.CollectionController">
    <children>
       <HBox layoutX="267.0" layoutY="228.0" prefHeight="900.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -88,7 +87,7 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Generate Random UUID">
+                        <Button mnemonicParsing="false" onAction="#genRandUUID" prefHeight="25.0" prefWidth="145.0" text="Generate Random UUID">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
@@ -348,7 +347,7 @@
                      <children>
                         <VBox>
                            <children>
-                              <Label prefHeight="25.0" prefWidth="200.0" text="File Prefix&quot;">
+                              <Label prefHeight="25.0" prefWidth="138.0" text="File Prefix:">
                                  <font>
                                     <Font name="Courier New Bold" size="14.0" />
                                  </font>
@@ -358,20 +357,29 @@
                               </Label>
                            </children>
                         </VBox>
-                        <TextField fx:id="file_prefix" prefHeight="25.0" prefWidth="113.0">
+                        <TextField fx:id="file_prefix" prefHeight="25.0" prefWidth="150.0">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Label prefHeight="25.0" prefWidth="200.0" text="Start Index(# suffix):">
+                        <Label prefHeight="25.0" prefWidth="132.0" text="Name Prefix:">
                            <font>
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="30.0" />
+                              <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="start_index" prefHeight="25.0" prefWidth="113.0" />
+                        <TextField fx:id="name_prefix" prefHeight="25.0" prefWidth="150.0" />
+                        <Label prefHeight="25.0" prefWidth="137.0" text="Start Index(#):">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="start_index" prefHeight="25.0" prefWidth="48.0" />
                      </children>
                      <VBox.margin>
                         <Insets left="10.0" />
@@ -413,12 +421,21 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="name_list" disable="true" editable="false" prefHeight="25.0" prefWidth="379.0" />
-                        <Button fx:id="open_name_list" mnemonicParsing="false" text="Open List">
+                        <TextField fx:id="name_list" disable="true" editable="false" prefHeight="25.0" prefWidth="307.0" />
+                        <Button fx:id="open_name_list" mnemonicParsing="false" onAction="#OpenNameList" text="Open List">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Button>
+                        <Label prefHeight="25.0" prefWidth="133.0" text="Words Per Name:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="word_count" prefHeight="25.0" prefWidth="38.0" />
                      </children>
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />
@@ -595,8 +612,8 @@
                   <HBox layoutX="20.0" layoutY="661.0" prefHeight="25.0" prefWidth="787.0">
                      <children>
                         <VBox />
-                        <Button fx:id="meta_test" mnemonicParsing="false" text="Generate Test Meta Data" />
-                        <Button fx:id="meta_save" mnemonicParsing="false" text="Save">
+                        <Button fx:id="meta_test" mnemonicParsing="false" onAction="#genTestMeta" text="Generate Test Meta Data" />
+                        <Button fx:id="meta_save" mnemonicParsing="false" onAction="#saveCollection" text="Save">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>

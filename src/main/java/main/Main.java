@@ -25,7 +25,7 @@ public class Main extends Application {
         final int initHeight = 900;
         final Pane root = new Pane();
 
-        Pane controller = FXMLLoader.load(getClass().getResource("/gui/Generator_GUI.fxml"));
+        Pane controller = FXMLLoader.load(getClass().getResource("/gui/Collection_GUI.fxml"));
         controller.setPrefWidth(initWidth);
         controller.setPrefHeight(initHeight);
         root.getChildren().add(controller);
@@ -60,7 +60,7 @@ public class Main extends Application {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                if (!Util.confirm("exit")) {
+                if (!Util.confirm(Util.ErrorType.EXIT)) {
                     event.consume();
                 }
             }
