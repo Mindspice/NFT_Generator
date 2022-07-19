@@ -10,23 +10,19 @@ import javafx.collections.ObservableList;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public  class Layer {
     private String name;
     private int number;
-    private int occurrence;
-    private int amount;
-    public ObservableList<ImageFile> imageList = FXCollections.observableArrayList();
 
+    private ObservableList<ImageFile> imageList = FXCollections.observableArrayList();
 
-
-
-    public Layer(String name, int layerNumber, int occurrence) {
+    public Layer(String name, int layerNumber) {
         this.name = name;
         this.number = layerNumber;
-        this.occurrence = occurrence;
     }
     public void addImage(String name, File image, double weight, int max) throws IOException {
             imageList.add(new ImageFile(name, image, weight, max));

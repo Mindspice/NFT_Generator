@@ -47,8 +47,11 @@ import java.util.*;
 
 
 public class GeneratorController {
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
     @FXML
     public Button collection_settings, generate_start, generate_stop, generate_test;
     @FXML
@@ -100,8 +103,11 @@ public class GeneratorController {
         layer_table_number.setCellValueFactory(new PropertyValueFactory("Number"));
         layer_table_name.setCellValueFactory(new PropertyValueFactory("Name"));
         layer_table_amount.setCellValueFactory(new PropertyValueFactory("Amount"));
+<<<<<<< Updated upstream
         init();
 
+=======
+>>>>>>> Stashed changes
     }
 
     /* JavaFX mouse events of image/layer table selection*/
@@ -256,7 +262,7 @@ public class GeneratorController {
 
     @javafx.fxml.FXML
     public void newLayer(ActionEvent actionEvent) {
-        layerList.add(new Layer("Layer_" + layerList.size(), layerList.size(), 1));
+        layerList.add(new Layer("Layer_" + layerList.size(), layerList.size()));
         layerInFocus = layerList.get(layerList.size() - 1);
         if (layerList.size() == 1) {
             layer_table.setItems(layerList);
@@ -523,7 +529,6 @@ public class GeneratorController {
         }
     }
 
-
     public void loadConfig(ActionEvent actionEvent) {
     }
 
@@ -533,10 +538,13 @@ public class GeneratorController {
     public void saveConfig(ActionEvent actionEvent) {
     }
 
+<<<<<<< Updated upstream
     public void OpenColSettings(ActionEvent actionEvent) throws IOException {
 
     }
 
+=======
+>>>>>>> Stashed changes
     public void genNoneImage(ActionEvent actionEvent) throws IOException {
         if (collection.getWidth() == 0 || collection.getHeight() == 0) {
             Util.error(Util.ErrorType.DIM, "");
@@ -548,4 +556,14 @@ public class GeneratorController {
         }
         layerInFocus.getImageList().add(new ImageFile(collection.getWidth(), collection.getHeight()));
     }
+<<<<<<< Updated upstream
+=======
+
+    public void importConfig(ActionEvent actionEvent) {
+    }
+
+    public void exportConfig(ActionEvent actionEvent) {
+        System.out.println(gson.toJson(layerList));
+    }
+>>>>>>> Stashed changes
 }

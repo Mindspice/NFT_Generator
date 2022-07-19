@@ -228,6 +228,7 @@ public class CollectionController implements Initializable {
             }
         }
     }
+<<<<<<< Updated upstream
     public GeneratorController genCon;
 
     public void backToGen(ActionEvent actionEvent) {
@@ -246,3 +247,6 @@ public class CollectionController implements Initializable {
     }
 }
 
+=======
+}
+>>>>>>> Stashed changes

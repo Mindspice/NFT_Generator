@@ -28,7 +28,11 @@ public class Main extends Application {
         final int initHeight = 900;
         final Pane root = new Pane();
 
+<<<<<<< Updated upstream
         Pane controller = FXMLLoader.load(getClass().getResource("/gui/Generator_GUI1.fxml"));
+=======
+        TabPane controller = FXMLLoader.load(getClass().getResource("/gui/Main.fxml"));
+>>>>>>> Stashed changes
         controller.setPrefWidth(initWidth);
         controller.setPrefHeight(initHeight);
         root.getChildren().add(controller);

@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="collection.CollectionController">
+    <children>
+        <HBox prefHeight="900.0" prefWidth="1600.0">
+            <children>
+                <VBox prefHeight="900.0" prefWidth="799.0">
+                    <children>
+                        <TextArea fx:id="meta_test_window" editable="false" prefHeight="870.0" prefWidth="797.0" wrapText="true" />
+                    </children>
+                </VBox>
+                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                <VBox layoutX="10.0" layoutY="10.0" prefHeight="900.0" prefWidth="799.0">
+                    <children>
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label prefHeight="25.0" prefWidth="241.0" text="Collection Information">
+                                    <font>
+                                        <Font name="Courier New Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="2.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <HBox>
+                            <children>
+                                <Label prefHeight="25.0" prefWidth="200.0" text="Collection Name:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="collection_name" prefHeight="25.0" prefWidth="580.0" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="30.0">
+                            <children>
+                                <Label prefHeight="25.0" prefWidth="200.0" text="Collection Description:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextArea fx:id="collection_description" prefHeight="75.0" prefWidth="580.0" wrapText="true" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox>
+                            <children>
+                                <Label prefHeight="25.0" prefWidth="200.0" text="Sensitive Content:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <RadioButton fx:id="sensitive_content" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="True">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="60.0">
+                            <children>
+                                <Label prefHeight="25.0" prefWidth="45.0" text="ID:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Button mnemonicParsing="false" onAction="#genRandUUID" prefHeight="25.0" prefWidth="145.0" text="Generate Random UUID">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </Button>
+                                <TextField fx:id="uuid" prefHeight="25.0" prefWidth="580.0">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="95.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="200.0" text="Icon URL:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="icon_url" prefHeight="25.0" prefWidth="580.0" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="250.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="200.0" text="Banner URL:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="banner_url" prefHeight="25.0" prefWidth="580.0">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="285.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="200.0" text="Twitter:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="twitter_url" prefHeight="25.0" prefWidth="580.0">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="310.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="200.0" text="Website:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="website_url" prefHeight="25.0" prefWidth="580.0">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="20.0" layoutY="320.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="200.0" text="Optional Extras">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="355.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="63.0" text="Type:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="opt_type_1" prefHeight="25.0" prefWidth="137.0">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <Label prefHeight="25.0" prefWidth="63.0" text="Value:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="opt_value_1" layoutX="210.0" layoutY="10.0" prefHeight="25.0" prefWidth="487.0">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="350.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="63.0" text="Type:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="opt_type_2" prefHeight="25.0" prefWidth="137.0">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <Label prefHeight="25.0" prefWidth="63.0" text="Value:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="opt_value_2" layoutX="210.0" layoutY="10.0" prefHeight="25.0" prefWidth="487.0">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="410.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="63.0" text="Type:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="opt_type_3" prefHeight="25.0" prefWidth="137.0">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <Label prefHeight="25.0" prefWidth="63.0" text="Value:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="opt_value_3" layoutX="210.0" layoutY="10.0" prefHeight="25.0" prefWidth="487.0">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <Separator prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+                        </Separator>
+                        <HBox alignment="CENTER" layoutX="20.0" layoutY="350.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="222.0" text="Per NFT Information">
+                                            <font>
+                                                <Font name="Courier New Bold" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <HBox layoutX="20.0" layoutY="320.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="138.0" text="File Prefix:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="file_prefix" prefHeight="25.0" prefWidth="150.0">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </TextField>
+                                <Label prefHeight="25.0" prefWidth="132.0" text="Name Prefix:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="name_prefix" prefHeight="25.0" prefWidth="150.0" />
+                                <Label prefHeight="25.0" prefWidth="137.0" text="Start Index(#):">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="start_index" prefHeight="25.0" prefWidth="48.0" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="471.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox />
+                                <RadioButton fx:id="name_random" mnemonicParsing="false" prefHeight="25.0" prefWidth="161.0" text="Random Names">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                                <RadioButton fx:id="name_unique" layoutX="224.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="153.0" text="Unique Names">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                                <RadioButton fx:id="name_index" layoutX="171.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="158.0" selected="true" text="Index In Name">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                                <RadioButton fx:id="name_in_filename" mnemonicParsing="false" prefHeight="25.0" prefWidth="244.0" text="Include Name In Filename">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="501.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox />
+                                <Label prefHeight="25.0" prefWidth="200.0" text="Name List(for random):">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="name_list" disable="true" editable="false" prefHeight="25.0" prefWidth="307.0" />
+                                <Button fx:id="open_name_list" mnemonicParsing="false" onAction="#OpenNameList" text="Open List">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Button>
+                                <Label prefHeight="25.0" prefWidth="133.0" text="Words Per Name:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="word_count" prefHeight="25.0" prefWidth="38.0" />
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="20.0" layoutY="350.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="200.0" text="Optional Static Traits">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="380.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="113.0" text="Trait_Type:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="opt_trait_type_1" prefHeight="25.0" prefWidth="137.0">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <Label prefHeight="25.0" prefWidth="63.0" text="Value:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="opt_trait_value_1" layoutX="210.0" layoutY="10.0" prefHeight="25.0" prefWidth="445.0">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="641.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="113.0" text="Trait_Type:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="opt_trait_type_2" prefHeight="25.0" prefWidth="137.0">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <Label prefHeight="25.0" prefWidth="63.0" text="Value:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="opt_trait_value_2" layoutX="210.0" layoutY="10.0" prefHeight="25.0" prefWidth="445.0">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="581.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="113.0" text="Trait_Type:">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <TextField fx:id="opt_trait_type_3" prefHeight="25.0" prefWidth="137.0">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <Label prefHeight="25.0" prefWidth="63.0" text="Value:">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Label>
+                                <TextField fx:id="opt_trait_value_3" layoutX="210.0" layoutY="10.0" prefHeight="25.0" prefWidth="445.0">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="556.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="134.0" text="NFT Description">
+                                            <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="501.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox />
+                                <RadioButton fx:id="desc_mirror" mnemonicParsing="false" prefHeight="25.0" prefWidth="297.0" text="Mirror Collection Description">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                                <RadioButton fx:id="desc_index" layoutX="224.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Index #">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                                <RadioButton fx:id="desc_col_name" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" text="Collection Name">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                                <RadioButton fx:id="desc_nft_name" layoutX="369.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" text="NFT Name">
+                                    <font>
+                                        <Font name="Courier New Bold" size="14.0" />
+                                    </font>
+                                </RadioButton>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="20.0" layoutY="661.0" prefHeight="25.0" prefWidth="787.0">
+                            <children>
+                                <VBox />
+                                <Button fx:id="meta_test" mnemonicParsing="false" onAction="#genTestMeta" text="Generate Test Meta Data" />
+                                <Button fx:id="meta_save" mnemonicParsing="false" onAction="#saveCollection" text="Save">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="10.0" top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

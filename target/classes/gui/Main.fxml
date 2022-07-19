@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<TabPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+   <tabs>
+      <Tab text="Generator">
+         <content>
+            <fx:include fx:id="generatorTab" source="GeneratorTab.fxml"/>
+         </content>
+      </Tab>
+      <Tab text="Collection Settings">
+        <content>
+           <fx:include fx:id="collectionTab" source="CollectionTab.fxml"/>
+        </content>
+      </Tab>
+   </tabs>
+</TabPane>

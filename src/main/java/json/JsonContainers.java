@@ -1,5 +1,9 @@
 package json;
 
+import collection.NFT;
+import layer.Layer;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +43,51 @@ public class JsonContainers {
             this.type = type;
             this.value = value;
         }
+    }
+
+    // Serialization containers
+    public static class CollectionSettings {
+        public String name;
+        public boolean sensitiveContent;
+        public List<String[]> colAttributes;
+        public String colDescription;
+        public String id;
+        public String filePrefix;
+        public String namePrefix;
+        public List<String[]> traitOpt;
+        public int startIndex;
+        public boolean randomNames;
+        public boolean uniqueNames;
+        public boolean indexInName;
+        public boolean nameInFileName;
+        public boolean mirrorColDesc;
+        public boolean indexInDesc;
+        public boolean colNameInDesc;
+        public boolean nftNameInDesc;
+        public String outputDirectory;
+        public int size;
+        public int width;
+        public int height;
+        public List<LayerSettings> layerList;
+    }
+
+    public static class NameGenSettings {
+        public String nameList;
+        public int wordCount;
+
+    }
+    
+    public static class LayerSettings {
+        public String name;
+        public int number;
+        public List<ImageSettings> imageList;
+    }
+
+    public static class ImageSettings {
+        public String name;
+        public String file;
+        public double weight;
+        public int max;
+        public int muteGroup;
     }
 }

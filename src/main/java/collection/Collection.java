@@ -16,7 +16,7 @@ public class Collection {
 
     private String name;
     private boolean sensitiveContent;
-    private List<String[]> colAttributes = new ArrayList<>();
+    private final List<String[]> colAttributes = new ArrayList<>();
     private String colDescription;
     private String id;
     private String filePrefix;
@@ -39,8 +39,6 @@ public class Collection {
     private int size = 1000;
     private int width = 0;
     private int height = 0;
-    private boolean duplicates = false;
-    private boolean disregardBG = true;
     private final List<NFT> collectionList = new ArrayList<>();
 
     private NameGen nameGen;
@@ -90,14 +88,6 @@ public class Collection {
 
     public int getStartIndex() {
         return startIndex;
-    }
-
-    public boolean isDuplicates() {
-        return duplicates;
-    }
-
-    public boolean isDisregardBG() {
-        return disregardBG;
     }
 
     public boolean isNameInFileName() {
@@ -197,14 +187,6 @@ public class Collection {
         this.height = height;
     }
 
-    public void setDuplicates(boolean duplicates) {
-        this.duplicates = duplicates;
-    }
-
-    public void setDisregardBG(boolean disregardBG) {
-        this.disregardBG = disregardBG;
-    }
-
     public void setSensitiveContent(boolean sensitiveContent) {
         this.sensitiveContent = sensitiveContent;
     }
@@ -282,6 +264,15 @@ public class Collection {
         this.namePrefix = namePrefix;
     }
 
+    public void setColDescription(String colDescription) {
+        this.colDescription = colDescription;
+    }
+
+    public void setTraitOpt(List<String[]> traitOpt) {
+        this.traitOpt = traitOpt;
+    }
+
+
     public class NameGen {
         List<String> names;
         HashMap<String,Boolean> takenNames = new HashMap<>();
@@ -318,7 +309,7 @@ public class Collection {
             }
             return name.toString();
         }
+
+
     }
-
-
 }
