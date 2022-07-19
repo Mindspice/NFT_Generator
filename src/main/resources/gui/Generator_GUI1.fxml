@@ -411,7 +411,7 @@
                                                          </HBox.margin>
                                                       </Label>
                                                       <TextField fx:id="collection_size" prefHeight="25.0" prefWidth="86.0" />
-                                                      <Button mnemonicParsing="false" onAction="#saveCollection" prefHeight="25.0" prefWidth="50.0" text="Save">
+                                                      <Button mnemonicParsing="false" onAction="#saveGenSettings" prefHeight="25.0" prefWidth="50.0" text="Save">
                                                          <HBox.margin>
                                                             <Insets left="192.0" />
                                                          </HBox.margin>
