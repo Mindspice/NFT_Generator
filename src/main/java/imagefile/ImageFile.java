@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 
 public class ImageFile {
 
@@ -13,7 +14,7 @@ public class ImageFile {
     private File file ;
     private double weight;
     private int max;
-    private  int count;
+    private int count;
     private int muteGroup = 0;
 
     public ImageFile(String name, File image, double weight, int max) throws IOException {
@@ -27,6 +28,12 @@ public class ImageFile {
         }
         this.file = image.getAbsoluteFile();
         this.weight = weight;
+    }
+
+    public ImageFile(int width, int height) {
+        name = "none";
+        image  = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
     }
 
     //Getters
@@ -47,6 +54,7 @@ public class ImageFile {
         return count;
     }
     public String getFileName() {
+        if (file == null) return "none";
         return file.toString();
     }
     public File getFile() {

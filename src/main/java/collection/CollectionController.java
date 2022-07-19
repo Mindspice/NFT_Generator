@@ -2,11 +2,16 @@ package collection;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import generator.GeneratorController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import json.JsonContainers;
 import json.MetaFactory;
 import logic.Util;
@@ -32,9 +37,7 @@ public class CollectionController implements Initializable {
     public Button open_name_list, meta_test, meta_save;
 
 
-    Collection collection = new Collection();
-    List<Integer> count = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-
+    Collection collection = GeneratorController.collection;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -76,13 +79,12 @@ public class CollectionController implements Initializable {
         System.out.println(collection.getColAttributes().size());
 
         var traits = new ArrayList<String[]>();
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 1; i < 4; ++i) {
             traits.add(new String[]{"Example Type" + i, "Example Value" + i});
         }
-
-        String meta = metaFactory.getMeta(42069, traits);
-        meta_test_window.setText(meta);
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        var meta = metaFactory.getMeta(42069, traits);
+        meta_test_window.setText(gson.toJson(meta));
     }
 
     public void saveCollection(ActionEvent actionEvent) {
@@ -110,7 +112,7 @@ public class CollectionController implements Initializable {
         }
 
         collection.setFilePrefix(file_prefix.getText());
-        collection.setName(name_prefix.getText());
+        collection.setNamePrefix(name_prefix.getText());
 
         if (Util.isInt(start_index.getText())) {
             collection.setStartIndex(Integer.parseInt(start_index.getText()));
@@ -224,6 +226,22 @@ public class CollectionController implements Initializable {
                 opt_trait_type_3.setText(s[0]);
                 opt_trait_value_3.setText(s[1]);
             }
+        }
+    }
+    public GeneratorController genCon;
+
+    public void backToGen(ActionEvent actionEvent) {
+        saveCollection(actionEvent);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/gui/Generator_GUI.fxml"));
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            stage.setTitle("SpiceGen Generator");
+
+            Main.scene.setRoot(root);
+            stage.show();
+            genCon.init();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

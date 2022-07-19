@@ -25,7 +25,8 @@ public class Util {
         REMOVE,
         EXIT,
         STOP,
-        NAME_LIST
+        NAME_LIST,
+        DIM,
     }
 
 
@@ -54,28 +55,14 @@ public class Util {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("Error");
         switch (type) {
-            case INPUT:
-                error.setContentText("Input Of: " + input + " Is Invalid");
-                break;
-            case VALUE:
-                error.setContentText("Incorrect Value: " + input + " | Valid Inputs: 0.0 - 1.0");
-                break;
-            case EMPTY_IMG:
-                error.setContentText("Add Layers & Images First");
-                break;
-            case EMPTY:
-                error.setContentText("Onne Or More Required Fields Are Empty");
-                break;
-            case BLOCKED:
-                error.setContentText("Already Generating A Collection");
-                break;
-            case STALL:
-                error.setContentText("Generation Stalled. Likely All Unique Combinations Have Been Exhausted");
-                break;
-            case LAYER:
-                error.setContentText("Create A Layer First");
-                break;
-
+            case INPUT -> error.setContentText("Input Of: " + input + " Is Invalid");
+            case VALUE -> error.setContentText("Incorrect Value: " + input + " | Valid Inputs: 0.0 - 1.0");
+            case EMPTY_IMG -> error.setContentText("Add Layers & Images First");
+            case EMPTY -> error.setContentText("One Or More Required Fields Are Empty");
+            case BLOCKED ->error.setContentText("Already Generating A Collection");
+            case STALL -> error.setContentText("Generation Stalled. Likely All Unique Combinations Have Been Exhausted");
+            case LAYER -> error.setContentText("Create A Layer First");
+            case DIM -> error.setContentText(" Dimensions Are Not Set");
         }
         error.showAndWait();
     }
@@ -85,15 +72,9 @@ public class Util {
         confirm.setTitle("Confirm");
 
         switch (type) {
-            case REMOVE:
-                confirm.setContentText("Remove?");
-                break;
-            case EXIT:
-                confirm.setContentText("Exit? Current Configuration Will Be Lost");
-                break;
-            case STOP:
-                confirm.setContentText("Stop Current Collection Generation?");
-                break;
+            case REMOVE -> confirm.setContentText("Remove?");
+            case EXIT ->confirm.setContentText("Exit? Current Configuration Will Be Lost");
+            case STOP ->confirm.setContentText("Stop Current Collection Generation?");
         }
         Optional<ButtonType> yesNo = confirm.showAndWait();
         return yesNo.isPresent() && yesNo.get() == ButtonType.OK;
@@ -103,18 +84,10 @@ public class Util {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("Exception");
         switch (type) {
-            case DIR:
-                error.setContentText("Invalid, Or Null Directory");
-                break;
-            case FILE:
-                error.setContentText("Error reading Or Writing File");
-                break;
-            case UNKNOWN:
-                error.setContentText("Unknown Error Encountered");
-                break;
-            case NAME_LIST:
-                error.setContentText("Provided Name List Is Too Short For Enough Unique Generations");
-
+            case DIR -> error.setContentText("Invalid, Or Null Directory");
+            case FILE -> error.setContentText("Error reading Or Writing File");
+            case UNKNOWN -> error.setContentText("Unknown Error Encountered");
+            case NAME_LIST ->error.setContentText("Provided Name List Is Too Short For Enough Unique Generations");
         }
         error.showAndWait();
     }

@@ -166,9 +166,14 @@
                                                 <Insets left="5.0" />
                                              </HBox.margin>
                                           </Button>
+                                          <Button fx:id="make_none" layoutX="640.0" layoutY="10.0" mnemonicParsing="false" onAction="#genNoneImage" prefHeight="25.0" prefWidth="173.0" text="Make &quot;None&quot; Image">
+                                             <HBox.margin>
+                                                <Insets left="370.0" />
+                                             </HBox.margin>
+                                          </Button>
                                           <Button fx:id="iamge_create_new" mnemonicParsing="false" onAction="#importImage" prefHeight="25.0" prefWidth="73.0" text="Open File">
                                              <HBox.margin>
-                                                <Insets left="555.0" right="10.0" />
+                                                <Insets left="10.0" right="10.0" />
                                              </HBox.margin>
                                           </Button>
                                           <Button fx:id="layer_files_import" mnemonicParsing="false" onAction="#importLayerDir" prefHeight="25.0" prefWidth="83.0" text="Import Files">
@@ -303,9 +308,9 @@
                                       <columns>
                                         <TableColumn fx:id="image_table_file" maxWidth="399.0" prefWidth="321.0" text="File" />
                                           <TableColumn fx:id="image_table_name" maxWidth="459.0" minWidth="0.0" prefWidth="269.0" text="Name" />
-                                        <TableColumn fx:id="image_table_weight" maxWidth="540.0" minWidth="0.0" prefWidth="62.0" text="Weight" />
-                                          <TableColumn fx:id="image_table_max" maxWidth="599.0" minWidth="0.0" prefWidth="62.0" text="Max" />
-                                          <TableColumn fx:id="image_table_mute" maxWidth="404.0" minWidth="0.0" prefWidth="82.0" text="Mute #" />
+                                        <TableColumn fx:id="image_table_weight" maxWidth="540.0" minWidth="0.0" prefWidth="68.0" text="Weight" />
+                                          <TableColumn fx:id="image_table_max" maxWidth="599.0" minWidth="0.0" prefWidth="69.0" text="Max" />
+                                          <TableColumn fx:id="image_table_mute" maxWidth="404.0" minWidth="0.0" prefWidth="72.0" text="Mute #" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -326,13 +331,18 @@
                                  <children>
                                     <HBox prefHeight="42.0" prefWidth="391.0">
                                        <children>
-                                          <Button fx:id="collection_settings" mnemonicParsing="false" text="Collection Settings" />
+                                          <Button fx:id="collection_settings" mnemonicParsing="false" onAction="#OpenColSettings" prefWidth="120.0" text="Collection Settings" />
+                                          <Button mnemonicParsing="false" onAction="#saveConfig" prefHeight="25.0" prefWidth="120.0" text="Save Configuration">
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </Button>
                                           <Label prefHeight="25.0" prefWidth="57.0" text="Width:">
                                              <font>
                                                 <Font name="Courier New Bold" size="14.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets left="266.0" />
+                                                <Insets left="137.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="collection_width" prefHeight="25.0" prefWidth="45.0">
@@ -347,13 +357,18 @@
                                     </HBox>
                                     <HBox layoutX="10.0" layoutY="20.0" prefHeight="39.0" prefWidth="391.0">
                                        <children>
-                                          <Button fx:id="regenerate" mnemonicParsing="false" text="Regenerate From File" />
+                                          <Button fx:id="menu" mnemonicParsing="false" onAction="#openMenu" prefHeight="25.0" prefWidth="120.0" text="Back To Menu" />
+                                          <Button mnemonicParsing="false" onAction="#loadConfig" prefWidth="120.0" text="Load Configuration">
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </Button>
                                           <Label prefHeight="25.0" prefWidth="65.0" text="Height:">
                                              <font>
                                                 <Font name="Courier New Bold" size="14.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets left="253.0" />
+                                                <Insets left="137.0" />
                                              </HBox.margin>
                                           </Label>
                                           <TextField fx:id="collection_height" prefHeight="25.0" prefWidth="45.0" />

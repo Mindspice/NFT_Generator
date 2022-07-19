@@ -10,7 +10,7 @@ public class MetaFactory {
     private final Collection collection;
     private final JsonContainers.Collection colMeta;
     private final boolean sensitiveContent;
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
 
     public MetaFactory(Collection collection) {
         this.collection = collection;
@@ -25,7 +25,7 @@ public class MetaFactory {
         }
     }
 
-    public String getMeta(int index, List<String[]> traits){
+    public JsonContainers.MetaData getMeta(int index, List<String[]> traits){
         var meta = new JsonContainers.MetaData();
 
         var name = new StringBuilder();
@@ -34,7 +34,6 @@ public class MetaFactory {
             name.append(collection.getNameGen().getName()).append(" ");
         }
         if (collection.isIndexInName()) name.append("#").append(index);
-        if(collection.isIndexInName()) meta.name += (" #" + index);
         meta.name = name.toString();
 
         var description = new StringBuilder();
@@ -57,6 +56,6 @@ public class MetaFactory {
             }
         }
         meta.collection = colMeta;
-        return gson.toJson(meta);
+        return meta;
     }
 }

@@ -584,7 +584,7 @@
                   <HBox layoutX="20.0" layoutY="501.0" prefHeight="25.0" prefWidth="787.0">
                      <children>
                         <VBox />
-                        <RadioButton fx:id="desc_mirror" mnemonicParsing="false" prefHeight="25.0" prefWidth="297.0" text="Mirror Collection Desription">
+                        <RadioButton fx:id="desc_mirror" mnemonicParsing="false" prefHeight="25.0" prefWidth="297.0" text="Mirror Collection Description">
                            <font>
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
@@ -616,6 +616,11 @@
                         <Button fx:id="meta_save" mnemonicParsing="false" onAction="#saveCollection" text="Save">
                            <HBox.margin>
                               <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="168.0" layoutY="10.0" mnemonicParsing="false" onAction="#backToGen" text="Back">
+                           <HBox.margin>
+                              <Insets left="537.0" />
                            </HBox.margin>
                         </Button>
                      </children>

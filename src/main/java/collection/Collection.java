@@ -1,5 +1,9 @@
 package collection;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import layer.Layer;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,7 +23,7 @@ public class Collection {
     private String namePrefix;
     private List<String[]> traitOpt;
     private File nameList;
-    private int startIndex;
+    private int startIndex = 1;
 
         /* Boolean Flags */
     private boolean randomNames;
@@ -33,18 +37,19 @@ public class Collection {
 
     private File outputDirectory;
     private int size = 1000;
-    private int width = 1200;
-    private int height = 1200;
+    private int width = 0;
+    private int height = 0;
     private boolean duplicates = false;
     private boolean disregardBG = true;
-    private List<NFT> collectionList = new ArrayList<>();
+    private final List<NFT> collectionList = new ArrayList<>();
 
     private NameGen nameGen;
+
+    private final ObservableList<Layer> layerList = FXCollections.observableArrayList();
 
     public void resetAttributes() {
         if (colAttributes != null) colAttributes.clear();
         if (traitOpt != null) traitOpt.clear();
-
     }
 
         /* Getters */
@@ -149,6 +154,10 @@ public class Collection {
 
     public boolean isUniqueNames() {
         return uniqueNames;
+    }
+
+    public ObservableList<Layer> getLayerList() {
+        return layerList;
     }
 
     /* SETTERS */
@@ -310,5 +319,6 @@ public class Collection {
             return name.toString();
         }
     }
+
 
 }

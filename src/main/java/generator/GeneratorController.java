@@ -1,7 +1,22 @@
 package generator;
+
 import collection.Collection;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import imagefile.ImageFile;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.transform.Scale;
+import javafx.stage.Stage;
+import json.JsonContainers;
+import json.MetaFactory;
 import layer.Layer;
 import logic.*;
 import main.Main;
@@ -21,6 +36,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+
 import javax.imageio.ImageIO;
 
 import java.awt.Graphics;
@@ -29,43 +45,63 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 
+
 public class GeneratorController {
 
-    public TextField link_layer;
-    public TableColumn image_table_link_layer;
-    @javafx.fxml.FXML
+
+    @FXML
+    public Button collection_settings, generate_start, generate_stop, generate_test;
+    @FXML
     private ImageView image_window;
     @javafx.fxml.FXML
     private TableView image_table, layer_table;
     @javafx.fxml.FXML
-    private TableColumn image_table_file,image_table_max,image_table_name, image_table_weight,layer_table_number,
-            layer_table_name,layer_table_occur,layer_table_amount,image_table_mute,image_table_link;
+    private TableColumn image_table_file, image_table_max, image_table_name, image_table_weight, layer_table_number,
+            layer_table_name, layer_table_amount, image_table_mute;
     @javafx.fxml.FXML
     private RadioButton generate_disregard_bg, generate_no_duplicates;
     @javafx.fxml.FXML
     private ProgressBar generation_progress;
     @javafx.fxml.FXML
-    private TextField collection_name,collection_directory, collection_prefix, collection_size, collection_width,
-            collection_height, layer_occur_number, layer_name, layer_number, image_name, image_file, image_weight,
-            image_max,link_group,mute_group ;
+    private TextField collection_directory, collection_size, collection_width,
+            collection_height, layer_name, layer_number, image_name, image_file, image_weight,
+            image_max, mute_group;
 
-    Collection collection = new Collection();
-    Layer layerInFocus;
-    ImageFile imageInFocus;
-    ObservableList<Layer> layerList = FXCollections.observableArrayList();
-    FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
-    boolean stopGen = false;
-    boolean blockGen = false;
+    public static Collection collection = new Collection();
+    private static MetaFactory metaFactory = new MetaFactory(collection);
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private static Layer layerInFocus;
+    private static ImageFile imageInFocus;
+    ObservableList<Layer> layerList = collection.getLayerList();
 
-    Task generate;
+    private static FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+    private static boolean stopGen = false;
+    private static boolean blockGen = false;
+
+
+
+    private Task generate;
+
+
+
+
+
+
+    public void init() {
+        layer_table.refresh();
+        collection_width.setText(String.valueOf(collection.getWidth()));
+        collection_height.setText(String.valueOf(collection.getHeight()));
+        collection_size.setText(String.valueOf(collection.getSize()));
+    }
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         layer_table.setItems(layerList);
         layer_table_number.setCellValueFactory(new PropertyValueFactory("Number"));
         layer_table_name.setCellValueFactory(new PropertyValueFactory("Name"));
-        layer_table_occur.setCellValueFactory(new PropertyValueFactory("Occurrence"));
         layer_table_amount.setCellValueFactory(new PropertyValueFactory("Amount"));
+        init();
+
     }
 
     /* JavaFX mouse events of image/layer table selection*/
@@ -148,7 +184,7 @@ public class GeneratorController {
 
     //Imports a whole directory of images to populate a layer.
     @javafx.fxml.FXML
-    public void importLayerDir(ActionEvent actionEvent)  {
+    public void importLayerDir(ActionEvent actionEvent) {
 
         if (layerInFocus == null) {
             Util.error(Util.ErrorType.LAYER, "");
@@ -159,12 +195,12 @@ public class GeneratorController {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File directory = directoryChooser.showDialog(Main.getStage());
             File[] directoryCont = directory.listFiles();
-            for (File f  :directoryCont) {
+            for (File f : directoryCont) {
                 if (f.getName().endsWith(".png")) {
                     layerInFocus.addImage(f.getName(), f, 1, 0);
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             Util.exception(Util.ErrorType.DIR);
             e.printStackTrace();
         }
@@ -173,7 +209,7 @@ public class GeneratorController {
 
     // Opens file chooser to replace existing image
     @javafx.fxml.FXML
-    public void replaceImageFile(ActionEvent actionEvent)  {
+    public void replaceImageFile(ActionEvent actionEvent) {
 
 
         if (imageInFocus != null) {
@@ -186,7 +222,7 @@ public class GeneratorController {
                 imageInFocus.setImage(ImageIO.read(file));
                 imageInFocus.setFile(file);
                 imageInFocus.setName(file.getName());
-            } catch(Exception e){
+            } catch (Exception e) {
                 Util.exception(Util.ErrorType.FILE);
             }
             image_table.refresh();
@@ -203,7 +239,7 @@ public class GeneratorController {
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showOpenDialog(Main.getStage());
             layerInFocus.addImage(file.getName(), file, 1, 0);
-        } catch(Exception e)  {
+        } catch (Exception e) {
             Util.exception(Util.ErrorType.FILE);
             e.printStackTrace();
         }
@@ -226,10 +262,7 @@ public class GeneratorController {
             layer_table.setItems(layerList);
             layer_table_number.setCellValueFactory(new PropertyValueFactory("Number"));
             layer_table_name.setCellValueFactory(new PropertyValueFactory("Name"));
-            layer_table_occur.setCellValueFactory(new PropertyValueFactory("Occurrence"));
             layer_table_amount.setCellValueFactory(new PropertyValueFactory("Amount"));
-            collection_name.setText(collection.getName());
-            collection_prefix.setText(collection.getFilePrefix());
             collection_size.setText(Integer.toString(collection.getSize()));
             collection_width.setText(Integer.toString(collection.getWidth()));
             collection_height.setText(Integer.toString(collection.getHeight()));
@@ -241,7 +274,7 @@ public class GeneratorController {
 
     @javafx.fxml.FXML
     public void deleteLayer(ActionEvent actionEvent) {
-        if(Util.confirm(Util.ErrorType.REMOVE)) {
+        if (Util.confirm(Util.ErrorType.REMOVE)) {
             layerList.remove(layer_table.getSelectionModel().getSelectedIndex());
         }
     }
@@ -261,7 +294,7 @@ public class GeneratorController {
         BufferedImage nftFile = new BufferedImage(collection.getWidth(), collection.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics graphics = nftFile.getGraphics();
 
-        HashMap<Integer,Boolean> muteTable = new HashMap<>();
+        HashMap<Integer, Boolean> muteTable = new HashMap<>();
 
 
         for (Layer l : layerList) {
@@ -270,8 +303,8 @@ public class GeneratorController {
 
                 // mute group
                 int i = 0;
-                if (image.getMuteGroup() != 0 ){
-                    while(muteTable.get(image.getMuteGroup()) != null) {
+                if (image.getMuteGroup() != 0) {
+                    while (muteTable.get(image.getMuteGroup()) != null) {
                         image = WeightedRandom.getWeightedRandom(l.getImageList());
                         i++;
                         if (i == collection.getSize() / 4) {
@@ -299,13 +332,14 @@ public class GeneratorController {
                 Thread gen = new Thread(generate);
                 gen.setDaemon(true);
                 gen.start();
-            } else{
+            } else {
                 Util.error(Util.ErrorType.EMPTY_IMG, "");
             }
         } else {
             Util.error(Util.ErrorType.BLOCKED, "");
         }
     }
+
     // Stops generation on next iteration
     public void generateStop(ActionEvent actionEvent) {
         if (Util.confirm(Util.ErrorType.STOP)) {
@@ -321,9 +355,13 @@ public class GeneratorController {
         return new Task() {
             @Override
             protected Object call() {
+                if (collection.getWidth() == 0 || collection.getHeight() == 0) {
+                    Util.error(Util.ErrorType.DIM, "");
+                    return false;
+                }
                 stopGen = false;
                 int iter = 1;
-                int loop = 1;
+                int loop = 0;
                 HashMap<String, Integer> dupeTable = new HashMap<>();
                 List<String> layerNames = new ArrayList<>();
                 for (Layer l : layerList) {
@@ -337,10 +375,10 @@ public class GeneratorController {
                 }
 
                 while (iter <= collection.getSize() && !stopGen) {
-                    List<String> traitList = new ArrayList<>();
+                    List<String[]> traitList = new ArrayList<>();
                     BufferedImage nftFile = new BufferedImage(collection.getWidth(), collection.getHeight(), BufferedImage.TYPE_INT_ARGB);
                     Graphics graphics = nftFile.getGraphics();
-                    HashMap<Integer,Boolean> muteTable = new HashMap<>();
+                    HashMap<Integer, Boolean> muteTable = new HashMap<>();
 
 
                     for (Layer l : layerList) {
@@ -348,38 +386,39 @@ public class GeneratorController {
                             ImageFile image = WeightedRandom.getWeightedRandom(l.getImageList());
                             int i = 0;
                             // mute group
-                            if (image.getMuteGroup() != 0  && i < collection.getSize() / 4){
-                                while(muteTable.get(image.getMuteGroup()) != null) {
+                            if (image.getMuteGroup() != 0) {
+                                while (muteTable.get(image.getMuteGroup()) != null) {
                                     image = WeightedRandom.getWeightedRandom(l.getImageList());
                                     i++;
+                                    if (i < collection.getSize() / 4) return false;
                                 }
                             }
                             muteTable.put(image.getMuteGroup(), true);
 
-
                             int j = 0; //handles the iterations of while loop to avoid endless, /4 is kind of random but should work
-                            while(image.getMax() != 0 && image.getMax() <= image.getCount() && j < collection.getSize() / 4){
-                                image = WeightedRandom.getWeightedRandom(l.getImageList());
-                                j++;
+                            if (image.getMuteGroup() == 999) {
+                                while (image.getMax() != 0 && image.getMax() <= image.getCount() && j < collection.getSize() / 4) {
+                                    image = WeightedRandom.getWeightedRandom(l.getImageList());
+                                    j++;
+                                }
                             }
                             graphics.drawImage(image.getImage(), 0, 0, null);
-                            traitList.add(image.getName());
+                            traitList.add(new String[]{l.getName(), image.getName()});
                             image.incCount();
                         }
                     }
-
                     graphics.dispose();
-                    NFT nft = new NFT(collection.getFilePrefix() + "_" + iter, traitList, generate_disregard_bg.isSelected());
+                    var metaData = metaFactory.getMeta(collection.getStartIndex() + iter, traitList);
+                    NFT nft = new NFT(metaData, collection.getStartIndex() + iter, traitList, generate_disregard_bg.isSelected());
 
                     if (generate_no_duplicates.isSelected()) {
                         if (dupeTable.get(nft.getID()) == null) {
                             dupeTable.put(nft.getID(), 1);
-                            writeImageFile(nft, nftFile, iter);
+                            writeImageFile(nft, nftFile);
                             ++iter;
-
                         }
                     } else {
-                        writeImageFile(nft, nftFile, iter);
+                        writeImageFile(nft, nftFile);
                         ++iter;
                     }
 
@@ -388,13 +427,13 @@ public class GeneratorController {
                         blockGen = false;
                         resetImageCount();
                         generation_progress.progressProperty().unbind();
-                        Util.error(Util.ErrorType.STALL,"");
-                        break;
+                        Util.error(Util.ErrorType.STALL, "");
+                        loop = 0;
+                        return false;
                     }
                     ++loop;
                     updateProgress(iter, collection.getSize());
                 }
-
                 resetImageCount();
                 blockGen = false;
                 return true;
@@ -411,61 +450,102 @@ public class GeneratorController {
     }
 
     private void sortLayers() {
-        Collections.sort(layerList, new Comparator<Layer>() {
+        layerList.sort(new Comparator<Layer>() {
             @Override
             public int compare(Layer l1, Layer l2) {
-                return Integer.valueOf(l1.getNumber()).compareTo(Integer.valueOf(l2.getNumber()));
+                return Integer.compare(l1.getNumber(), l2.getNumber());
             }
         });
     }
 
     // Saves(writes) final files to disk
-    private void writeImageFile(NFT nft, BufferedImage nftFile, int iter) {
+    private void writeImageFile(NFT nft, BufferedImage nftFile) {
         try {
-            File finalImage = new File(collection.getOutputDirectory(), collection.getFilePrefix()  + iter + ".png");
+            String fileName = (collection.getFilePrefix() + "_" + nft.getIndex()
+                    + (collection.isNameInFileName() ? ("_" + nft.getName()) : ""));
+
+            fileName = fileName.replaceAll("\\s", "_");
+            File finalImage = new File(collection.getOutputDirectory(), fileName + ".png");
+
             ImageIO.write(nftFile, "PNG", finalImage);
             nft.setFinalImage(finalImage.getAbsoluteFile());
 
-            if (writeDataFile(collection.getOutputDirectory(), collection.getName(),
-                    finalImage.getCanonicalFile().toString(), nft.getTraitList())) {
-                throw new IOException();
-            }
-            System.out.println(finalImage.getAbsoluteFile());
-        } catch(IOException e) {
+            if (writeDataFile(finalImage.getCanonicalFile().toString(), nft.getTraitList())) throw new IOException();
+            if (writeJsonFile(nft, fileName)) throw new IOException();
+        } catch (IOException e) {
             Util.exception(Util.ErrorType.FILE);
             e.printStackTrace();
         }
     }
 
-    private boolean writeDataFile(File collectionDir, String collectionName, String nftFile, List<String> traits) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collectionDir + "/" +  collectionName + ".txt"), true));
+    public boolean writeJsonFile(NFT nft, String fileName) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collection.getOutputDirectory() + "/"
+                + fileName + ".json"), true));
+
+        pw.append(gson.toJson(nft.getMetaData()));
+        pw.close();
+
+        return pw.checkError();
+    }
+
+    private boolean writeDataFile(String nftFile, List<String[]> traits) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collection.getOutputDirectory() + "/"
+                + collection.getName() + ".txt"), true));
+
         pw.append(nftFile);
-        for (String s : traits) {
-            pw.append( "," + s);
+        for (String[] s : traits) {
+            pw.append(",").append(s[1]);
         }
         pw.append("\n");
         pw.close();
 
         return pw.checkError();
     }
+
     private boolean writeDataHeader(File collectionDir, String collectionName, List<String> layers) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collectionDir + "/" +  collectionName + ".txt"), true));
+        PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collectionDir + "/" + collectionName + ".txt"), true));
         pw.append("FileName,");
         for (String s : layers) {
             pw.append(",").append(s);
         }
         pw.append("\n");
         pw.close();
+
         return pw.checkError();
     }
 
     private void resetImageCount() {
         for (Layer l : layerList) {
-            List <ImageFile> layerImages = l.getImageList();
+            List<ImageFile> layerImages = l.getImageList();
             for (ImageFile i : layerImages) {
                 i.resetCount();
             }
         }
     }
 
+
+    public void loadConfig(ActionEvent actionEvent) {
+    }
+
+    public void openMenu(ActionEvent actionEvent) {
+    }
+
+    public void saveConfig(ActionEvent actionEvent) {
+    }
+
+    public void OpenColSettings(ActionEvent actionEvent) throws IOException {
+
+    }
+
+    public void genNoneImage(ActionEvent actionEvent) throws IOException {
+        if (collection.getWidth() == 0 || collection.getHeight() == 0) {
+            Util.error(Util.ErrorType.DIM, "");
+            return;
+        }
+        if (layerInFocus == null) {
+            Util.error(Util.ErrorType.LAYER, "");
+            return;
+        }
+        layerInFocus.getImageList().add(new ImageFile(collection.getWidth(), collection.getHeight()));
+    }
 }

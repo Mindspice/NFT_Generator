@@ -1,5 +1,7 @@
 package main;
 
+import collection.CollectionController;
+import generator.GeneratorController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,7 +19,8 @@ import logic.Util;
 
 public class Main extends Application {
 
-    private static Stage stage;
+    public static Stage stage;
+    public static Scene scene;
 
     public void start(Stage stage) throws Exception {
 
@@ -25,7 +28,7 @@ public class Main extends Application {
         final int initHeight = 900;
         final Pane root = new Pane();
 
-        Pane controller = FXMLLoader.load(getClass().getResource("/gui/Collection_GUI.fxml"));
+        Pane controller = FXMLLoader.load(getClass().getResource("/gui/Generator_GUI1.fxml"));
         controller.setPrefWidth(initWidth);
         controller.setPrefHeight(initHeight);
         root.getChildren().add(controller);
@@ -35,10 +38,10 @@ public class Main extends Application {
         scale.yProperty().bind(root.heightProperty().divide(initHeight));
         root.getTransforms().add(scale);
 
-        final Scene scene = new Scene(root, initWidth, initHeight);
+        scene = new Scene(root, initWidth, initHeight);
         stage.setScene(scene);
         stage.setResizable(true);
-        stage.setTitle("NFT Generator");
+        stage.setTitle("SpiceGen Generator");
         Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
         stage.getIcons().add(icon);
 

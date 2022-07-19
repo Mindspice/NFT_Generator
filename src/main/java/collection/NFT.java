@@ -1,16 +1,22 @@
 package collection;
 
+import json.JsonContainers;
+
 import java.io.File;
 import java.util.List;
 
 public class NFT {
     private String name;
-    private List<String> traitList;
+    private int index;
+    private List<String[]> traitList;
     private String id;
     private File finalImage;
+    private JsonContainers.MetaData metaData;
 
-    public NFT(String name, List<String> traits, boolean disregardDB) {
-        this.name = name;
+    public NFT(JsonContainers.MetaData metaData,int index, List<String[]> traits, boolean disregardDB) {
+        this.metaData = metaData;
+        this.index = index;
+        this.name = metaData.name;
         this.traitList = traits;
         if (disregardDB) {
             id = genId(1);
@@ -31,12 +37,12 @@ public class NFT {
         StringBuilder sb = new StringBuilder();
 
         for (int i = index; i < traitList.size(); ++i) {
-            sb.append(traitList.get(i));
+            sb.append(traitList.get(i)[1]);
         }
         return sb.toString();
     }
 
-    public List getTraitList() {
+    public List<String[]> getTraitList() {
         return traitList;
     }
 
@@ -46,5 +52,16 @@ public class NFT {
 
     public void setFinalImage(File finalImage) {
         this.finalImage = finalImage;
+    }
+    public String getName () {
+        return name;
+    }
+
+    public JsonContainers.MetaData getMetaData() {
+        return metaData;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }
