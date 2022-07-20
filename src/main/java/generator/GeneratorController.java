@@ -4,25 +4,15 @@ import collection.Collection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import imagefile.ImageFile;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.transform.Scale;
-import javafx.stage.Stage;
-import json.JsonContainers;
 import json.MetaFactory;
 import layer.Layer;
 import logic.*;
+import main.Controller;
 import main.Main;
 import collection.*;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
@@ -46,12 +36,10 @@ import java.net.URL;
 import java.util.*;
 
 
+
+
 public class GeneratorController {
-<<<<<<< Updated upstream
 
-
-=======
->>>>>>> Stashed changes
     @FXML
     public Button collection_settings, generate_start, generate_stop, generate_test;
     @FXML
@@ -70,45 +58,35 @@ public class GeneratorController {
             collection_height, layer_name, layer_number, image_name, image_file, image_weight,
             image_max, mute_group;
 
-    public static Collection collection = new Collection();
-    private static MetaFactory metaFactory = new MetaFactory(collection);
-    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private static Layer layerInFocus;
-    private static ImageFile imageInFocus;
-    ObservableList<Layer> layerList = collection.getLayerList();
+    public static CollectionController collectionController;
 
-    private static FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
-    private static boolean stopGen = false;
-    private static boolean blockGen = false;
-
-
-
+    private Collection collection = Main.collection;
+    private MetaFactory metaFactory = new MetaFactory(collection);
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private ObservableList<Layer> layerList = collection.getLayerList();
+    private FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+    private FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("Json files (*.json)", "*.json");
+    private Layer layerInFocus;
+    private ImageFile imageInFocus;
+    private boolean stopGen = false;
+    private boolean blockGen = false;
     private Task generate;
 
-
-
-
-
-
-    public void init() {
-        layer_table.refresh();
-        collection_width.setText(String.valueOf(collection.getWidth()));
-        collection_height.setText(String.valueOf(collection.getHeight()));
-        collection_size.setText(String.valueOf(collection.getSize()));
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        init();
     }
 
-
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void init() {
         layer_table.setItems(layerList);
         layer_table_number.setCellValueFactory(new PropertyValueFactory("Number"));
         layer_table_name.setCellValueFactory(new PropertyValueFactory("Name"));
         layer_table_amount.setCellValueFactory(new PropertyValueFactory("Amount"));
-<<<<<<< Updated upstream
-        init();
-
-=======
->>>>>>> Stashed changes
+        collection_width.setText(String.valueOf(collection.getWidth()));
+        collection_height.setText(String.valueOf(collection.getHeight()));
+        collection_size.setText(String.valueOf(collection.getSize()));;
     }
+
+
 
     /* JavaFX mouse events of image/layer table selection*/
 
@@ -177,7 +155,7 @@ public class GeneratorController {
     }
 
     @javafx.fxml.FXML
-    public void saveCollection(ActionEvent actionEvent) {
+    public void saveGenSettings(ActionEvent actionEvent) {
         if (Util.isInt(collection_size.getText()) && Util.isInt(collection_width.getText())
                 && Util.isInt(collection_height.getText())) {
 
@@ -185,7 +163,6 @@ public class GeneratorController {
             collection.setWidth(Integer.parseInt(collection_width.getText()));
             collection.setHeight(Integer.parseInt(collection_height.getText()));
         }
-
     }
 
     //Imports a whole directory of images to populate a layer.
@@ -196,10 +173,9 @@ public class GeneratorController {
             Util.error(Util.ErrorType.LAYER, "");
             return;
         }
-
         try {
             DirectoryChooser directoryChooser = new DirectoryChooser();
-            File directory = directoryChooser.showDialog(Main.getStage());
+            File directory = directoryChooser.showDialog(Main.stage);
             File[] directoryCont = directory.listFiles();
             for (File f : directoryCont) {
                 if (f.getName().endsWith(".png")) {
@@ -223,8 +199,8 @@ public class GeneratorController {
                 FileChooser fileChooser = new FileChooser();
                 File defaultDirectory = new File(imageInFocus.getFile().getParent());
                 fileChooser.setInitialDirectory(defaultDirectory);
-                fileChooser.getExtensionFilters().add(extFilter);
-                File file = fileChooser.showOpenDialog(Main.getStage());
+                fileChooser.getExtensionFilters().add(pngFilter);
+                File file = fileChooser.showOpenDialog(Main.stage);
                 imageInFocus.setImage(ImageIO.read(file));
                 imageInFocus.setFile(file);
                 imageInFocus.setName(file.getName());
@@ -242,8 +218,8 @@ public class GeneratorController {
     public void importImage(ActionEvent actionEvent) {
         try {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showOpenDialog(Main.getStage());
+            fileChooser.getExtensionFilters().add(pngFilter);
+            File file = fileChooser.showOpenDialog(Main.stage);
             layerInFocus.addImage(file.getName(), file, 1, 0);
         } catch (Exception e) {
             Util.exception(Util.ErrorType.FILE);
@@ -289,7 +265,7 @@ public class GeneratorController {
     @javafx.fxml.FXML
     public void setOutputDir(ActionEvent actionEvent) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        File directory = directoryChooser.showDialog(Main.getStage());
+        File directory = directoryChooser.showDialog(Main.stage);
         collection.setOutputDirectory(directory);
         collection_directory.setText(directory.toString());
     }
@@ -301,7 +277,6 @@ public class GeneratorController {
         Graphics graphics = nftFile.getGraphics();
 
         HashMap<Integer, Boolean> muteTable = new HashMap<>();
-
 
         for (Layer l : layerList) {
             if (!l.getImageList().isEmpty()) {
@@ -319,7 +294,6 @@ public class GeneratorController {
                     }
                 }
                 muteTable.put(image.getMuteGroup(), true);
-
                 graphics.drawImage(image.getImage(), 0, 0, null);
             }
         }
@@ -331,6 +305,10 @@ public class GeneratorController {
     @javafx.fxml.FXML
     public void generateStart(ActionEvent actionEvent) {
         if (!blockGen) {
+            if (collection.getWidth() == 0 || collection.getHeight() == 0) {
+                Util.error(Util.ErrorType.DIM, "");
+            }
+            // TODO throw unique check here
             if (!layerList.isEmpty()) {
                 blockGen = true;
                 generate = generator();
@@ -361,10 +339,6 @@ public class GeneratorController {
         return new Task() {
             @Override
             protected Object call() {
-                if (collection.getWidth() == 0 || collection.getHeight() == 0) {
-                    Util.error(Util.ErrorType.DIM, "");
-                    return false;
-                }
                 stopGen = false;
                 int iter = 1;
                 int loop = 0;
@@ -386,7 +360,6 @@ public class GeneratorController {
                     Graphics graphics = nftFile.getGraphics();
                     HashMap<Integer, Boolean> muteTable = new HashMap<>();
 
-
                     for (Layer l : layerList) {
                         if (!l.getImageList().isEmpty()) {
                             ImageFile image = WeightedRandom.getWeightedRandom(l.getImageList());
@@ -402,7 +375,7 @@ public class GeneratorController {
                             muteTable.put(image.getMuteGroup(), true);
 
                             int j = 0; //handles the iterations of while loop to avoid endless, /4 is kind of random but should work
-                            if (image.getMuteGroup() == 999) {
+                            if (image.getMuteGroup() == 0) {
                                 while (image.getMax() != 0 && image.getMax() <= image.getCount() && j < collection.getSize() / 4) {
                                     image = WeightedRandom.getWeightedRandom(l.getImageList());
                                     j++;
@@ -468,13 +441,11 @@ public class GeneratorController {
     private void writeImageFile(NFT nft, BufferedImage nftFile) {
         try {
             String fileName = (collection.getFilePrefix() + "_" + nft.getIndex()
-                    + (collection.isNameInFileName() ? ("_" + nft.getName()) : ""));
+                    + (collection.getFlags().nameInFileName ? ("_" + nft.getName()) : ""));
 
             fileName = fileName.replaceAll("\\s", "_");
             File finalImage = new File(collection.getOutputDirectory(), fileName + ".png");
-
             ImageIO.write(nftFile, "PNG", finalImage);
-            nft.setFinalImage(finalImage.getAbsoluteFile());
 
             if (writeDataFile(finalImage.getCanonicalFile().toString(), nft.getTraitList())) throw new IOException();
             if (writeJsonFile(nft, fileName)) throw new IOException();
@@ -488,7 +459,7 @@ public class GeneratorController {
         PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collection.getOutputDirectory() + "/"
                 + fileName + ".json"), true));
 
-        pw.append(gson.toJson(nft.getMetaData()));
+        pw.append(Util.fixPretty(gson.toJson(nft.getMetaData())));
         pw.close();
 
         return pw.checkError();
@@ -529,22 +500,6 @@ public class GeneratorController {
         }
     }
 
-    public void loadConfig(ActionEvent actionEvent) {
-    }
-
-    public void openMenu(ActionEvent actionEvent) {
-    }
-
-    public void saveConfig(ActionEvent actionEvent) {
-    }
-
-<<<<<<< Updated upstream
-    public void OpenColSettings(ActionEvent actionEvent) throws IOException {
-
-    }
-
-=======
->>>>>>> Stashed changes
     public void genNoneImage(ActionEvent actionEvent) throws IOException {
         if (collection.getWidth() == 0 || collection.getHeight() == 0) {
             Util.error(Util.ErrorType.DIM, "");
@@ -554,16 +509,25 @@ public class GeneratorController {
             Util.error(Util.ErrorType.LAYER, "");
             return;
         }
-        layerInFocus.getImageList().add(new ImageFile(collection.getWidth(), collection.getHeight()));
+        var noneImage = new ImageFile();
+        layerInFocus.getImageList().add((noneImage.genNone(collection.getWidth(), collection.getHeight())));
     }
-<<<<<<< Updated upstream
-=======
+
 
     public void importConfig(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(jsonFilter);
+        File file = fileChooser.showOpenDialog(Main.stage);
+        Util.importSettings(file);
+        collectionController.init();
+        init();
+
     }
 
     public void exportConfig(ActionEvent actionEvent) {
-        System.out.println(gson.toJson(layerList));
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(jsonFilter);
+        File file = fileChooser.showSaveDialog(Main.stage);
+        Util.exportSettings(collection,file.getAbsolutePath());
     }
->>>>>>> Stashed changes
 }

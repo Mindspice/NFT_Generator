@@ -1,14 +1,17 @@
 package main;
 
+import collection.Collection;
 import collection.CollectionController;
 import generator.GeneratorController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -21,18 +24,15 @@ public class Main extends Application {
 
     public static Stage stage;
     public static Scene scene;
-
+    public static Collection collection;
     public void start(Stage stage) throws Exception {
 
         final int initWidth = 1600;
         final int initHeight = 900;
         final Pane root = new Pane();
 
-<<<<<<< Updated upstream
-        Pane controller = FXMLLoader.load(getClass().getResource("/gui/Generator_GUI1.fxml"));
-=======
+
         TabPane controller = FXMLLoader.load(getClass().getResource("/gui/Main.fxml"));
->>>>>>> Stashed changes
         controller.setPrefWidth(initWidth);
         controller.setPrefHeight(initHeight);
         root.getChildren().add(controller);
@@ -74,11 +74,9 @@ public class Main extends Application {
         });
     }
 
-    public static Stage getStage() {
-        return stage;
-    }
 
     public static void main(String[] args) throws InterruptedException {
+        collection = new Collection();
         launch(args);
     }
 

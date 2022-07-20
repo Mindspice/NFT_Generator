@@ -1,9 +1,7 @@
 package json;
 
-import collection.NFT;
-import layer.Layer;
+import collection.Flags;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,47 +45,42 @@ public class JsonContainers {
 
     // Serialization containers
     public static class CollectionSettings {
-        public String name;
-        public boolean sensitiveContent;
-        public List<String[]> colAttributes;
-        public String colDescription;
-        public String id;
-        public String filePrefix;
-        public String namePrefix;
-        public List<String[]> traitOpt;
+        public String name = "";
+        public List<String[]> colAttributes = new ArrayList<>();
+        public String colDescription = "";
+        public String id = "";
+        public String filePrefix = "";
+        public String namePrefix = "";
+        public List<String[]> traitOpt = new ArrayList<>();
         public int startIndex;
-        public boolean randomNames;
-        public boolean uniqueNames;
-        public boolean indexInName;
-        public boolean nameInFileName;
-        public boolean mirrorColDesc;
-        public boolean indexInDesc;
-        public boolean colNameInDesc;
-        public boolean nftNameInDesc;
-        public String outputDirectory;
+        public String outputDirectory = "";
         public int size;
         public int width;
         public int height;
-        public List<LayerSettings> layerList;
+        public List<LayerSettings> layerList = new ArrayList<>();
+        public NameGenSettings nameGenSettings;
+        public Flags flags;
     }
 
     public static class NameGenSettings {
-        public String nameList;
+        public String nameList = "";
         public int wordCount;
 
     }
-    
+
     public static class LayerSettings {
-        public String name;
+        public String name = "";
         public int number;
-        public List<ImageSettings> imageList;
+        public List<ImageSettings> imageList = new ArrayList<>();
     }
 
     public static class ImageSettings {
-        public String name;
-        public String file;
+        public String name = "";
+        public String file = "";
         public double weight;
         public int max;
         public int muteGroup;
     }
 }
+
+

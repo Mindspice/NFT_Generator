@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="collection.CollectionController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="collection.CollectionController">
     <children>
         <HBox prefHeight="900.0" prefWidth="1600.0">
             <children>
@@ -609,6 +609,27 @@
                                 <Insets left="10.0" />
                             </VBox.margin>
                         </HBox>
+                  <HBox layoutX="20.0" layoutY="721.0" prefHeight="25.0" prefWidth="787.0">
+                     <children>
+                        <VBox />
+                        <RadioButton fx:id="seriesAsTrait" mnemonicParsing="false" prefHeight="25.0" prefWidth="297.0" text="Series # As Trait">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="seriesAsAttribute" layoutX="224.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="225.0" text="Series # AS Attrbiute">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
                         <HBox layoutX="20.0" layoutY="661.0" prefHeight="25.0" prefWidth="787.0">
                             <children>
                                 <VBox />
@@ -620,7 +641,7 @@
                                 </Button>
                             </children>
                             <VBox.margin>
-                                <Insets left="10.0" top="5.0" />
+                                <Insets left="10.0" top="10.0" />
                             </VBox.margin>
                         </HBox>
                     </children>

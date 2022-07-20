@@ -2,17 +2,11 @@ package collection;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import generator.GeneratorController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import json.JsonContainers;
 import json.MetaFactory;
 import logic.Util;
 import main.Main;
@@ -28,7 +22,7 @@ public class CollectionController implements Initializable {
     public TextArea meta_test_window, collection_description;
     @FXML
     public RadioButton sensitive_content, name_random, name_unique, name_index, name_in_filename, desc_mirror, desc_index,
-            desc_col_name, desc_nft_name;
+            desc_col_name, desc_nft_name, seriesAsTrait, seriesAsAttribute;
     @FXML
     public TextField collection_name, uuid, icon_url, banner_url, twitter_url, website_url, opt_type_1, opt_value_1, opt_type_2,
             opt_value_2, opt_type_3, opt_value_3, file_prefix, name_prefix, start_index, name_list, opt_trait_type_1,
@@ -36,34 +30,37 @@ public class CollectionController implements Initializable {
     @FXML
     public Button open_name_list, meta_test, meta_save;
 
-
-    Collection collection = GeneratorController.collection;
+    Collection collection = Main.collection;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        init();
+    }
 
+    public void init() {
         collection_name.setText(collection.getName());
         collection_name.setText(collection.getColDescription());
-        sensitive_content.setSelected(collection.isSensitiveContent());
+        sensitive_content.setSelected(collection.getFlags().sensitiveContent);
         uuid.setText(collection.getId());
         initColAttributes();
         file_prefix.setText(collection.getFilePrefix());
         name_prefix.setText(collection.getNamePrefix());
         start_index.setText(String.valueOf(collection.getStartIndex()));
-        name_random.setSelected(collection.isRandomNames());
-        name_unique.setSelected(collection.isUniqueNames());
-        name_index.setSelected(collection.isIndexInName());
-        name_in_filename.setSelected(collection.isNameInFileName());
+        name_random.setSelected(collection.getFlags().randomNames);
+        name_unique.setSelected(collection.getFlags().uniqueNames);
+        name_index.setSelected(collection.getFlags().indexInName);
+        name_in_filename.setSelected(collection.getFlags().nameInFileName);
         if (collection.getNameList() != null) name_list.setText(collection.getNameList().getPath());
-        if (collection.getNameGen() != null) word_count.setText(String.valueOf(collection.getNameGen().wordCount));
-        desc_mirror.setSelected(collection.isMirrorColDesc());
-        desc_index.setSelected(collection.isIndexInDesc());
-        desc_col_name.setSelected(collection.isColNameInDesc());
-        desc_nft_name.setSelected(collection.isNftNameInDesc());
+        if (collection.getNameGen() != null) word_count.setText(String.valueOf(collection.getNameGen().getWordCount()));
+        desc_mirror.setSelected(collection.getFlags().mirrorColDesc);
+        desc_index.setSelected(collection.getFlags().indexInDesc);
+        desc_col_name.setSelected(collection.getFlags().colNameInDesc);
+        desc_nft_name.setSelected(collection.getFlags().nftNameInDesc);
+        seriesAsTrait.setSelected(collection.getFlags().seriesAsTrait);
+        seriesAsAttribute.setSelected(collection.getFlags().seriesAsAttribute);
         initStaticTraits();
-        if (word_count.getText().isEmpty()) word_count.setText("2");
-        if (start_index.getText().isEmpty()) start_index.setText("1");
+        word_count.setText(collection.getNameGen() == null ? "2" : String.valueOf(collection.getNameGen().getWordCount()));
+        start_index.setText(String.valueOf(collection.getStartIndex()));
     }
-
 
     public void genRandUUID(ActionEvent actionEvent) {
         String id = UUID.randomUUID().toString();
@@ -91,7 +88,7 @@ public class CollectionController implements Initializable {
         collection.resetAttributes();
         collection.setName(collection_name.getText());
         collection.setDescription((collection_description.getText()));
-        collection.setSensitiveContent(sensitive_content.isSelected());
+        collection.getFlags().sensitiveContent = sensitive_content.isSelected();
         collection.setId(uuid.getText());
         collection.setIcon(icon_url.getText());
         collection.setBanner(banner_url.getText());
@@ -117,10 +114,10 @@ public class CollectionController implements Initializable {
         if (Util.isInt(start_index.getText())) {
             collection.setStartIndex(Integer.parseInt(start_index.getText()));
         }
-        collection.setRandomNames(name_random.isSelected());
-        collection.setUniqueNames(name_unique.isSelected());
-        collection.setIndexInName(name_index.isSelected());
-        collection.setNameInFileName(name_in_filename.isSelected());
+        collection.getFlags().randomNames = name_random.isSelected();
+        collection.getFlags().uniqueNames = name_unique.isSelected();
+        collection.getFlags().indexInName = name_index.isSelected();
+        collection.getFlags().nameInFileName = name_in_filename.isSelected();
 
         if (!opt_trait_type_1.getText().isEmpty() && !opt_trait_value_1.getText().isEmpty()) {
             collection.addTraitOpt(opt_trait_type_1.getText(), opt_trait_value_1.getText());
@@ -134,24 +131,30 @@ public class CollectionController implements Initializable {
         }
 
 
-        collection.setMirrorColDesc(desc_mirror.isSelected());
-        collection.setIndexInDesc(desc_index.isSelected());
-        collection.setColNameInDesc(desc_col_name.isSelected());
-        collection.setNftNameInDesc(desc_nft_name.isSelected());
+        collection.getFlags().mirrorColDesc = desc_mirror.isSelected();
+        collection.getFlags().indexInDesc = desc_index.isSelected();
+        collection.getFlags().colNameInDesc = desc_col_name.isSelected();
+        collection.getFlags().nftNameInDesc = desc_nft_name.isSelected();
+        collection.getFlags().seriesAsTrait = seriesAsTrait.isSelected();
+        collection.getFlags().seriesAsAttribute = seriesAsAttribute.isSelected();
 
         if (collection.getNameList() == null) {
-            collection.setUniqueNames(false);
-            collection.setRandomNames(false);
+            collection.getFlags().uniqueNames = false;
+            collection.getFlags().randomNames = false;
             name_unique.setSelected(false);
             name_random.setSelected(false);
         }
         if (name_random.isSelected()) {
             try {
-                collection.setNameGen(word_count.getText().isEmpty()
-                        ? 2 : Integer.parseInt(word_count.getText()));
-                word_count.setText(String.valueOf(collection.getNameGen().wordCount));
+                if(collection.getNameGen() == null) {
+                    collection.setNameGen(word_count.getText().isEmpty()
+                            ? 2 : Integer.parseInt(word_count.getText()));
+                }
+                    collection.getNameGen().setWordCount(Integer.parseInt(word_count.getText()));
             } catch (IllegalArgumentException e) {
                 Util.exception(Util.ErrorType.NAME_LIST);
+                name_unique.setSelected(false);
+                name_random.setSelected(false);
             } catch (IOException e) {
                 Util.exception(Util.ErrorType.FILE);
             }
@@ -165,14 +168,14 @@ public class CollectionController implements Initializable {
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showOpenDialog(Main.getStage());
+            File file = fileChooser.showOpenDialog(Main.stage);
             collection.setNameList(file);
             name_list.setText(file.getPath());
             if (collection.getNameGen() == null) {
                 collection.setNameGen(word_count.getText().isEmpty()
                         ? 2 : Integer.parseInt(word_count.getText()));
             }
-            word_count.setText(String.valueOf(collection.getNameGen().wordCount));
+            word_count.setText(String.valueOf(collection.getNameGen().getWordCount()));
         } catch (Exception e) {
             Util.exception(Util.ErrorType.FILE);
             e.printStackTrace();
@@ -213,6 +216,7 @@ public class CollectionController implements Initializable {
             }
         }
     }
+
     private void initStaticTraits() {
         if (collection.getTraitOpt() == null) return;
         for (String[] s : collection.getTraitOpt()) {
@@ -228,25 +232,5 @@ public class CollectionController implements Initializable {
             }
         }
     }
-<<<<<<< Updated upstream
-    public GeneratorController genCon;
-
-    public void backToGen(ActionEvent actionEvent) {
-        saveCollection(actionEvent);
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/gui/Generator_GUI.fxml"));
-            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            stage.setTitle("SpiceGen Generator");
-
-            Main.scene.setRoot(root);
-            stage.show();
-            genCon.init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
 
-=======
-}
->>>>>>> Stashed changes

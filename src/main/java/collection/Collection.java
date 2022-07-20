@@ -14,29 +14,18 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Collection {
 
-    private String name;
-    private boolean sensitiveContent;
+    private String name = "";
     private final List<String[]> colAttributes = new ArrayList<>();
-    private String colDescription;
-    private String id;
-    private String filePrefix;
-    private String namePrefix;
-    private List<String[]> traitOpt;
+    private String colDescription = "";
+    private String id = "";
+    private String filePrefix ="";
+    private String namePrefix ="";
+    private final List<String[]> traitOpt = new ArrayList<>();
     private File nameList;
     private int startIndex = 1;
-
-        /* Boolean Flags */
-    private boolean randomNames;
-    private boolean uniqueNames;
-    private boolean indexInName;
-    private boolean nameInFileName;
-    private boolean mirrorColDesc;
-    private boolean indexInDesc;
-    private boolean colNameInDesc;
-    private boolean nftNameInDesc;
-
+    private Flags flags = new Flags();
     private File outputDirectory;
-    private int size = 1000;
+    private int size = 0;
     private int width = 0;
     private int height = 0;
     private final List<NFT> collectionList = new ArrayList<>();
@@ -46,8 +35,8 @@ public class Collection {
     private final ObservableList<Layer> layerList = FXCollections.observableArrayList();
 
     public void resetAttributes() {
-        if (colAttributes != null) colAttributes.clear();
-        if (traitOpt != null) traitOpt.clear();
+         colAttributes.clear();
+        traitOpt.clear();
     }
 
         /* Getters */
@@ -90,30 +79,6 @@ public class Collection {
         return startIndex;
     }
 
-    public boolean isNameInFileName() {
-        return nameInFileName;
-    }
-
-    public boolean isSensitiveContent() {
-        return sensitiveContent;
-    }
-
-    public boolean isIndexInDesc() {
-        return indexInDesc;
-    }
-
-    public boolean isColNameInDesc() {
-        return colNameInDesc;
-    }
-
-    public boolean isMirrorColDesc() {
-        return mirrorColDesc;
-    }
-
-    public boolean isRandomNames() {
-        return randomNames;
-    }
-
     public NameGen getNameGen() {
         return nameGen;
     }
@@ -126,42 +91,31 @@ public class Collection {
         return colDescription;
     }
 
-    public boolean isNftNameInDesc() {
-        return nftNameInDesc;
-    }
-
     public List<String[]> getTraitOpt() {
         return traitOpt;
-    }
-
-    public boolean isIndexInName() {
-        return indexInName;
     }
 
     public String getNamePrefix() {
         return namePrefix;
     }
 
-    public boolean isUniqueNames() {
-        return uniqueNames;
-    }
-
     public ObservableList<Layer> getLayerList() {
         return layerList;
     }
 
-    /* SETTERS */
+    public Flags getFlags() {
+        return flags;
+    }
+
+        /* SETTERS */
 
     public void addNFT(NFT nft) {
         collectionList.add(nft);
     }
 
-
     public void addTraitOpt(String trait_type, String value) {
-        if (traitOpt == null) traitOpt = new ArrayList<>();
         traitOpt.add(new String[]{trait_type,value});
     }
-
 
     public void setName(String name) {
         this.name = name;
@@ -185,10 +139,6 @@ public class Collection {
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public void setSensitiveContent(boolean sensitiveContent) {
-        this.sensitiveContent = sensitiveContent;
     }
 
     public void setId(String id) {
@@ -216,22 +166,6 @@ public class Collection {
         colAttributes.add(new String[]{"website", website});
     }
 
-    public void setRandomNames(boolean randomNames) {
-        this.randomNames = randomNames;
-    }
-
-    public void setUniqueNames(boolean uniqueNames) {
-        this.uniqueNames = uniqueNames;
-    }
-
-    public void setIndexInName(boolean indexInName) {
-        this.indexInName = indexInName;
-    }
-
-    public void setNameInFileName(boolean nameInFileName) {
-        this.nameInFileName = nameInFileName;
-    }
-
     public void setStartIndex(int startIndex) {
         this.startIndex = startIndex;
     }
@@ -240,25 +174,10 @@ public class Collection {
         this.nameList = nameList;
     }
 
-    public void setMirrorColDesc(boolean mirrorColDesc) {
-        this.mirrorColDesc = mirrorColDesc;
-    }
-
-    public void setIndexInDesc(boolean indexInDesc) {
-        this.indexInDesc = indexInDesc;
-    }
-
-    public void setColNameInDesc(boolean colNameInDesc) {
-        this.colNameInDesc = colNameInDesc;
-    }
-
     public void setNameGen(int wordCount) throws IOException, IllegalArgumentException {
         nameGen = new NameGen(wordCount);
     }
 
-    public void setNftNameInDesc(boolean nftNameInDesc) {
-        this.nftNameInDesc = nftNameInDesc;
-    }
 
     public void setNamePrefix(String namePrefix) {
         this.namePrefix = namePrefix;
@@ -268,24 +187,20 @@ public class Collection {
         this.colDescription = colDescription;
     }
 
-    public void setTraitOpt(List<String[]> traitOpt) {
-        this.traitOpt = traitOpt;
+    public void setFlags(Flags flags) {
+        this.flags = flags;
     }
-
 
     public class NameGen {
         List<String> names;
         HashMap<String,Boolean> takenNames = new HashMap<>();
-        public int wordCount;
+        private int wordCount;
         int unique;
 
         public NameGen(int wordCount) throws IllegalArgumentException, IOException {
-
             names = Files.readAllLines(Paths.get(nameList.getPath()));
-
             unique = (int) Math.pow(names.size(),wordCount);
-            if (uniqueNames && size < unique) throw new IllegalArgumentException();
-
+            if (flags.uniqueNames && size > unique) throw new IllegalArgumentException();
             this.wordCount = wordCount;
         }
 
@@ -295,7 +210,6 @@ public class Collection {
             while (takenNames.containsKey(name) && i <= unique) {
                 name = buildName();
                 i++;
-                if (i == unique) throw new IllegalStateException();
             }
             takenNames.put(name, true);
             return name;
@@ -310,6 +224,16 @@ public class Collection {
             return name.toString();
         }
 
+        public int getWordCount() {
+            return wordCount;
+        }
 
+        public void setWordCount(int i) throws IllegalArgumentException {
+            wordCount = i;
+            unique = (int) Math.pow(names.size(),wordCount);
+            System.out.println(names.size());
+            System.out.println(unique);
+            if (flags.uniqueNames && size > unique) throw new IllegalArgumentException();
+        }
     }
 }

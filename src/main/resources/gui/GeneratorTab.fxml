@@ -59,7 +59,7 @@
                                                                                     <columns>
                                                                                         <TableColumn fx:id="layer_table_number" prefWidth="49.0" text="#" />
                                                                                         <TableColumn fx:id="layer_table_amount" prefWidth="96.0" text="Amount" />
-                                                                                        <TableColumn fx:id="layer_table_name" prefWidth="351.0" text="Name" />
+                                                                                        <TableColumn fx:id="layer_table_name" prefWidth="350.0" text="Name" />
                                                                                     </columns>
                                                                                     <HBox.margin>
                                                                                         <Insets left="8.0" />
@@ -319,6 +319,27 @@
                                     <children>
                                         <VBox prefHeight="127.0" prefWidth="894.0">
                                             <children>
+                                                <HBox layoutX="10.0" layoutY="62.0" prefHeight="33.0" prefWidth="391.0">
+                                                    <children>
+                                                        <Label prefHeight="25.0" prefWidth="160.0" text="Output Directory:">
+                                                            <font>
+                                                                <Font name="Courier New Bold" size="14.0" />
+                                                            </font>
+                                                            <HBox.margin>
+                                                                <Insets right="4.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                        <TextField fx:id="collection_directory" disable="true" editable="false" prefHeight="25.0" prefWidth="217.0" />
+                                                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setOutputDir" prefHeight="25.0" prefWidth="103.0" text="Select Directory">
+                                                            <HBox.margin>
+                                                                <Insets left="10.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets top="4.0" />
+                                                    </VBox.margin>
+                                                </HBox>
                                     <HBox prefHeight="33.0" prefWidth="393.0">
                                        <children>
                                           <Label prefHeight="25.0" prefWidth="140.0" text="Collection Size:">
@@ -358,32 +379,11 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </HBox>
-                                                <HBox layoutX="10.0" layoutY="62.0" prefHeight="33.0" prefWidth="391.0">
-                                                    <children>
-                                                        <Label prefHeight="25.0" prefWidth="160.0" text="Output Directory:">
-                                                            <font>
-                                                                <Font name="Courier New Bold" size="14.0" />
-                                                            </font>
-                                                            <HBox.margin>
-                                                                <Insets right="4.0" />
-                                                            </HBox.margin>
-                                                        </Label>
-                                                        <TextField fx:id="collection_directory" disable="true" editable="false" prefHeight="25.0" prefWidth="217.0" />
-                                                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setOutputDir" prefHeight="25.0" prefWidth="103.0" text="Select Directory">
-                                                            <HBox.margin>
-                                                                <Insets left="10.0" />
-                                                            </HBox.margin>
-                                                        </Button>
-                                                    </children>
-                                                    <VBox.margin>
-                                                        <Insets top="4.0" />
-                                                    </VBox.margin>
-                                                </HBox>
                                     <HBox prefHeight="33.0" prefWidth="496.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#importConfig" text="Import Config">
                                              <HBox.margin>
-                                                <Insets left="302.0" />
+                                                <Insets left="303.0" />
                                              </HBox.margin>
                                           </Button>
                                           <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#exportConfig" text="Export Config">
@@ -423,16 +423,16 @@
                                                 </RadioButton>
                                                 <HBox prefHeight="64.0" prefWidth="393.0">
                                                     <children>
-                                                        <ProgressBar fx:id="generation_progress" prefHeight="49.0" prefWidth="108.0" progress="0.0" />
+                                                        <ProgressBar fx:id="generation_progress" prefHeight="42.0" prefWidth="118.0" progress="0.0" />
                                                         <Button fx:id="generate_test" alignment="CENTER" layoutX="149.0" layoutY="10.0" mnemonicParsing="false" onAction="#generateTest" prefHeight="49.0" prefWidth="47.0" text="Test" textAlignment="CENTER">
                                                             <HBox.margin>
-                                                                <Insets left="10.0" right="5.0" />
+                                                                <Insets left="5.0" right="5.0" />
                                                             </HBox.margin>
                                                         </Button>
                                                         <Button fx:id="generate_stop" layoutX="125.0" layoutY="10.0" mnemonicParsing="false" onAction="#generateStop" prefHeight="49.0" prefWidth="47.0" text="Stop" />
-                                                        <Button fx:id="generate_start" mnemonicParsing="false" onAction="#generateStart" prefHeight="49.0" prefWidth="82.0" text="Generate" textAlignment="CENTER">
+                                                        <Button fx:id="generate_start" mnemonicParsing="false" onAction="#generateStart" prefHeight="42.0" prefWidth="67.0" text="Generate" textAlignment="CENTER">
                                                             <HBox.margin>
-                                                                <Insets left="4.0" right="10.0" />
+                                                                <Insets left="5.0" right="5.0" />
                                                             </HBox.margin>
                                                         </Button>
                                                     </children>
@@ -450,7 +450,10 @@
                                         <Insets left="20.0" />
                                     </VBox.margin>
                                 </ImageView>
-                                <Separator layoutX="10.0" layoutY="630.0" prefWidth="200.0" />
+                                <Separator layoutX="10.0" layoutY="630.0" prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin></Separator>
                             </children>
                         </VBox>
                     </children>

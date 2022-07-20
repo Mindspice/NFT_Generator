@@ -45,11 +45,7 @@ public  class Layer {
         return number;
     }
 
-    public int getOccurrence() {
-        return occurrence;
-    }
-
-    public ObservableList getImageList() {
+    public ObservableList<ImageFile> getImageList() {
         return imageList;
     }
 
@@ -66,9 +62,7 @@ public  class Layer {
         this.number = number;
     }
 
-    public void setOccurrence(int occurrence) {
-        this.occurrence = occurrence;
-    }
+
 
 }
 

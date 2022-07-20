@@ -29,11 +29,12 @@ public class ImageFile {
         this.file = image.getAbsoluteFile();
         this.weight = weight;
     }
+    public ImageFile(){}
 
-    public ImageFile(int width, int height) {
+    public ImageFile genNone(int width, int height) {
         name = "none";
         image  = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
+        return this;
     }
 
     //Getters

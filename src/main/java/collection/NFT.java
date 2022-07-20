@@ -50,9 +50,7 @@ public class NFT {
         return finalImage;
     }
 
-    public void setFinalImage(File finalImage) {
-        this.finalImage = finalImage;
-    }
+
     public String getName () {
         return name;
     }
