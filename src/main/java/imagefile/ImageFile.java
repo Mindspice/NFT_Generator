@@ -29,6 +29,7 @@ public class ImageFile {
         this.file = image.getAbsoluteFile();
         this.weight = weight;
     }
+
     public ImageFile(){}
 
     public ImageFile genNone(int width, int height) {
@@ -42,54 +43,66 @@ public class ImageFile {
     public String getName() {
         return name;
     }
+
     public BufferedImage getImage() {
         return image;
     }
+
     public double getWeight() {
         return weight;
     }
+
     public int getMax() {
         return max;
     }
+
     public int getCount() {
         return count;
     }
+
     public String getFileName() {
         if (file == null) return "none";
         return file.toString();
     }
+
     public File getFile() {
         return file;
     }
+
     public int getMuteGroup() {
         return muteGroup;
     }
-
-
 
     //Setters
 
     public void setName(String name) {
         this.name = name;
     }
+
     public void setImage(BufferedImage image) {
         this.image = image;
     }
+
     public void setWeight(double weight) {
         this.weight = weight;
     }
+
     public void setMax(int max) {
         this.max = max;
     }
+
     public void incCount() {
         this.count++;
     }
+
     public void resetCount() {
         this.count = 0;
     }
+
     public void setFile(File file) {
         this.file = file;
     }
+
     public void setMuteGroup(int muteGroup) {
         this.muteGroup = muteGroup;
     }

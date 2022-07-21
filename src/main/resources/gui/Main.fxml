@@ -10,10 +10,15 @@
             <fx:include fx:id="generatorTab" source="GeneratorTab.fxml"/>
          </content>
       </Tab>
-      <Tab text="Collection Settings">
+      <Tab text="Metadata">
         <content>
            <fx:include fx:id="collectionTab" source="CollectionTab.fxml"/>
         </content>
+      </Tab>
+      <Tab text="Mint">
+         <content>
+            <fx:include fx:id="MintTab" source="MintTab.fxml"/>
+         </content>
       </Tab>
    </tabs>
 </TabPane>

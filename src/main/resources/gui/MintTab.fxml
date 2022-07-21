@@ -1,0 +1,962 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="871.0" prefWidth="1600.0"  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mint.MintController">
+   <children>
+      <HBox layoutX="687.0" layoutY="273.0" prefHeight="871.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="800.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="25.0">
+                     <children>
+                        <Label prefHeight="27.0" prefWidth="48.0" text="URIs">
+                           <font>
+                              <Font name="Courier New Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+                  <HBox layoutX="15.0" layoutY="481.0" prefHeight="50.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="50.0" prefWidth="804.0" text="* ipfs:// and ar:// links can't be validated and can be assumed correct if listed in proper order and derived from their portal link.  * If hashes fail to validate your links may be resolving to a different URI through their portal or just in general." wrapText="true">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Image List 1:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="img_list_1" disable="true" editable="false" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openImg1" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_img_1" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="45.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Image List 2:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="img_list_2" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openImg2" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_img_2" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="70.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Image List 3:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="img_list_3" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openImg3" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_img_3" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="95.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Image List 4:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="imt_list_4" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openImg4" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_img_4" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="120.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Image List 5:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="img_list_5" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openImg5" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_img_5" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <HBox layoutX="15.0" layoutY="45.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Meta List 1:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="meta_list_1" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openMeta1" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_meta_1" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="75.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Meta List 2:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="meta_list_2" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openMeta2" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_meta_2" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="105.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Meta List 3:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="meta_list_3" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openMeta3" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_meta_3" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="135.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Meta List 4:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="mata_list_4" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openMeta4" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_meta_4" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="165.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="Meta List 5:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="meta_list_5" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#openMeta5" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_meta_5" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="195.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <HBox layoutX="15.0" layoutY="203.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="License URI 1:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="license_1" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#saveLicense1" prefHeight="25.0" prefWidth="46.0" text="Save">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_license_1" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="233.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="License URI 2:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="license_2" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#saveLicense2" prefWidth="46.0" text="Save">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_license_2" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="263.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="License URI 3:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="license_3" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#saveLicense3" prefWidth="46.0" text="Save">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_license_3" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="293.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="License URI 4:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="license_4" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#saveLicense4" prefWidth="46.0" text="Save">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_license_4" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="323.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="120.0" text="License URI 5:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="license_5" disable="true" prefHeight="25.0" prefWidth="470.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#saveLicense5" prefWidth="46.0" text="Save">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_license_5" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="353.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <Label prefHeight="27.0" prefWidth="323.0" text="Validate With Source Files">
+                           <font>
+                              <Font name="Courier New Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="511.0" prefWidth="200.0" />
+                  <Label prefHeight="108.0" prefWidth="795.0" text="The normal validation above, validates all entries in the lists against each other if selected. By enabling and adding image/meta directories here, they also will be validated against the image/meta files themselves. This requires your image files to have no non-unique text before their index/series number and requires your index/series number to be zero padded.                     Example: &quot;Your Name 0001.png - Your Name 1000.png&quot; if a series of 1000. This is to ensure your file lists correctly match your list URIs, if you know for certain they do you can skip this step." wrapText="true">
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.0" layoutY="541.0" prefWidth="200.0" />
+                  <HBox layoutX="15.0" layoutY="481.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="143.0" text="Image Directory:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="image_dir" disable="true" prefHeight="25.0" prefWidth="445.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#OpenImgDir" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_image_dir" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="655.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="143.0" text="Meta Directory:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="meta_dir" disable="true" prefHeight="25.0" prefWidth="445.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#OpenMetaDir" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <RadioButton fx:id="valid_meta_dir" mnemonicParsing="false" prefHeight="25.0" text="Validate Hash">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#checkHashes" text="Check Hashes">
+                     <VBox.margin>
+                        <Insets left="704.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox prefWidth="800.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="201.0" text="Mint Configuration">
+                           <font>
+                              <Font name="Courier New Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator prefWidth="841.0" translateX="-4.0">
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <HBox prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="140.0" text="Wallet ID:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="wallet_id" prefHeight="25.0" prefWidth="50.0" />
+                        <Label prefHeight="25.0" prefWidth="477.0" text="ID of your chia NFT wallet (Make sure it has DID linked for a DID collection)" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="43.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="140.0" text="Royalty (as %):">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="royalty_amount" prefHeight="25.0" prefWidth="50.0" />
+                        <Label prefHeight="25.0" prefWidth="477.0" text="\%   Enter a valid number between 0.00 - 100.00" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="1.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="73.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="140.0" text="Royalty Address:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="royalty_address" prefHeight="25.0" prefWidth="420.0" />
+                        <Label prefHeight="25.0" prefWidth="219.0" text="XCH Address For Royalities" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="103.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="140.0" text="Target Address:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="target_address" prefHeight="25.0" prefWidth="420.0" />
+                        <Label prefHeight="25.0" prefWidth="224.0" text="XCH Address That Will Receive NFTs" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="73.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="140.0" text="Fee(as Mojos):">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="fee_amount" prefHeight="25.0" prefWidth="104.0" />
+                        <Button mnemonicParsing="false" onAction="#didFee" text="DID">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="678.0" layoutY="10.0" mnemonicParsing="false" onAction="#nonDidFee" text="NO DID">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Label prefHeight="25.0" prefWidth="354.0" text="Fee To Include, Buttons Plug Recommended Default" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="133.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="has_editions" mnemonicParsing="false" prefHeight="25.0" text="Has Editions">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <Label prefHeight="25.0" prefWidth="61.0" text=" Amount">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="editions_amount" prefHeight="25.0" prefWidth="42.0">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label prefHeight="25.0" prefWidth="447.0" text="Number Of Editions To Generate(Copies), Indexed From 1 - Amount" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="35.0" prefWidth="841.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="198.0" text="Python Mint Script">
+                           <font>
+                              <Font name="Courier New Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="35.0" prefWidth="841.0" />
+                  <Label prefHeight="76.0" prefWidth="787.0" text="When running script be sure to be synced on the wallet on which you wish to mint from, by either doing &quot;chia show wallet&quot; on its finger print, or selecting it. You can also use the GUI, but make sure it is since on the proper wallet fingerprint as well." wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <HBox layoutX="15.0" layoutY="193.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="is_linux_script" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Linux* Script">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <Label prefHeight="25.0" prefWidth="669.0" text=" Calls chia directly if added to PATH or if running  (venv).  *Can work on windows if chia is set in PATH" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="254.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="is_windows_script" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Windows Script">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <Label prefHeight="25.0" prefWidth="530.0" text="Call chia via windows wrapper (Chia installed via windows installer)" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="289.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="227.0" text="Daemon Directory(Windows): ">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="daemon_dir" disable="true" prefHeight="25.0" prefWidth="511.0" />
+                        <Button mnemonicParsing="false" onAction="#openDeamonDir" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="319.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="649.0" text="Example: C:\Users\&quot;Your User Name&quot;\AppData\Local\chia-blockchain\app-x.x.x\resources\app.asar.unpacked\daemon">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="223.0" prefWidth="841.0" />
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="226.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="225.0" text="Generate Mint Setup">
+                           <font>
+                              <Font name="Courier New Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="251.0" prefWidth="841.0" />
+                  <HBox layoutX="15.0" layoutY="405.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="valid_hashes" mnemonicParsing="false" prefHeight="25.0" selected="true" text="Validate Hashes">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="abort_on_error" layoutX="172.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" text="Abort On Hash Mis-Match">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="editions_as_file" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" text="Edition Sets As Own File">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="319.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="149.0" text="Output Directory:">
+                           <font>
+                              <Font name="Courier New Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="output_dir" disable="true" prefHeight="25.0" prefWidth="511.0" />
+                        <Button mnemonicParsing="false" onAction="#openOutputDir" text="Open">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="15.0" layoutY="459.0" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#makeGenScript" text="Create Generation Script">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="15.0" layoutY="10.0" mnemonicParsing="false" onAction="#makeJsonList" text="Create Generation Json List">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button layoutX="161.0" layoutY="10.0" mnemonicParsing="false" onAction="#makeBothScripts" text="Create Both">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="419.0" prefWidth="841.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="422.0" prefHeight="25.0" prefWidth="800.0">
+                     <children>
+                        <Label prefHeight="23.0" prefWidth="147.0" text="Error Console">
+                           <font>
+                              <Font name="Courier New Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Separator layoutX="10.0" layoutY="492.0" prefWidth="841.0" />
+                  <TextArea fx:id="error_console" editable="false" prefHeight="366.0" prefWidth="700.0" translateX="-1.5" translateY="-1.5">
+                     <VBox.margin>
+                        <Insets top="1.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

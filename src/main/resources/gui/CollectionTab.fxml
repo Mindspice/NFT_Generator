@@ -18,10 +18,16 @@
             <children>
                 <VBox prefHeight="900.0" prefWidth="799.0">
                     <children>
-                        <TextArea fx:id="meta_test_window" editable="false" prefHeight="870.0" prefWidth="797.0" wrapText="true" />
+                        <TextArea fx:id="meta_test_window" editable="false" prefHeight="871.0" prefWidth="798.0" wrapText="true">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></TextArea>
                     </children>
                 </VBox>
-                <Separator orientation="VERTICAL" prefHeight="200.0" />
+                <Separator orientation="VERTICAL" prefHeight="200.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Separator>
                 <VBox layoutX="10.0" layoutY="10.0" prefHeight="900.0" prefWidth="799.0">
                     <children>
                         <HBox alignment="CENTER">

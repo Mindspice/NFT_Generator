@@ -2,17 +2,11 @@ package layer;
 
 
 import imagefile.ImageFile;
-import logic.Util;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public  class Layer {
     private String name;

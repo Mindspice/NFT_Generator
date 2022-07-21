@@ -5,11 +5,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import imagefile.ImageFile;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Parent;
 import json.MetaFactory;
 import layer.Layer;
-import logic.*;
-import main.Controller;
+import utility.*;
 import main.Main;
 import collection.*;
 
@@ -34,8 +32,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-
-
 
 
 public class GeneratorController {
@@ -64,8 +60,7 @@ public class GeneratorController {
     private MetaFactory metaFactory = new MetaFactory(collection);
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private ObservableList<Layer> layerList = collection.getLayerList();
-    private FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
-    private FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("Json files (*.json)", "*.json");
+    ;
     private Layer layerInFocus;
     private ImageFile imageInFocus;
     private boolean stopGen = false;
@@ -83,7 +78,10 @@ public class GeneratorController {
         layer_table_amount.setCellValueFactory(new PropertyValueFactory("Amount"));
         collection_width.setText(String.valueOf(collection.getWidth()));
         collection_height.setText(String.valueOf(collection.getHeight()));
-        collection_size.setText(String.valueOf(collection.getSize()));;
+        collection_size.setText(String.valueOf(collection.getSize()));
+        ;
+        if (collection.getOutputDirectory() != null) collection_directory
+                .setText(collection.getOutputDirectory().getAbsolutePath());
     }
 
 
@@ -131,13 +129,13 @@ public class GeneratorController {
     public void saveImage(ActionEvent actionEvent) {
         imageInFocus.setName(image_name.getText());
 
-        if (logic.Util.isDouble(image_weight.getText()) && logic.Util.isInt(image_max.getText())) {
+        if (utility.Util.isDouble(image_weight.getText()) && utility.Util.isInt(image_max.getText())) {
             imageInFocus.setWeight(Double.parseDouble(image_weight.getText()));
             imageInFocus.setMax(Integer.parseInt(image_max.getText()));
             imageInFocus.setMuteGroup(Integer.parseInt(mute_group.getText()));
 
             if (Double.parseDouble(image_weight.getText()) > 1.0 || Double.parseDouble(image_weight.getText()) < 0.0) {
-                logic.Util.error(Util.ErrorType.VALUE, image_weight.getText());
+                utility.Util.error(Util.ErrorType.VALUE, image_weight.getText());
             }
         }
         image_table.refresh();
@@ -174,8 +172,7 @@ public class GeneratorController {
             return;
         }
         try {
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            File directory = directoryChooser.showDialog(Main.stage);
+            File directory = Util.openDirectory();
             File[] directoryCont = directory.listFiles();
             for (File f : directoryCont) {
                 if (f.getName().endsWith(".png")) {
@@ -193,13 +190,12 @@ public class GeneratorController {
     @javafx.fxml.FXML
     public void replaceImageFile(ActionEvent actionEvent) {
 
-
         if (imageInFocus != null) {
             try {
                 FileChooser fileChooser = new FileChooser();
                 File defaultDirectory = new File(imageInFocus.getFile().getParent());
                 fileChooser.setInitialDirectory(defaultDirectory);
-                fileChooser.getExtensionFilters().add(pngFilter);
+                fileChooser.getExtensionFilters().add(Util.FileFilter.PNG.ext);
                 File file = fileChooser.showOpenDialog(Main.stage);
                 imageInFocus.setImage(ImageIO.read(file));
                 imageInFocus.setFile(file);
@@ -212,14 +208,11 @@ public class GeneratorController {
         }
     }
 
-
     // Opens file chooser to add a single image to layer
     @javafx.fxml.FXML
     public void importImage(ActionEvent actionEvent) {
         try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(pngFilter);
-            File file = fileChooser.showOpenDialog(Main.stage);
+            File file = Util.openFile(Util.FileFilter.PNG);
             layerInFocus.addImage(file.getName(), file, 1, 0);
         } catch (Exception e) {
             Util.exception(Util.ErrorType.FILE);
@@ -347,12 +340,9 @@ public class GeneratorController {
                 for (Layer l : layerList) {
                     layerNames.add(l.getName());
                 }
-                try {
-                    writeDataHeader(collection.getOutputDirectory(), collection.getName(), layerNames);
-                } catch (FileNotFoundException e) {
-                    Util.exception(Util.ErrorType.FILE);
-                    e.printStackTrace();
-                }
+
+                writeDataHeader(collection.getOutputDirectory(), collection.getName(), layerNames);
+
 
                 while (iter <= collection.getSize() && !stopGen) {
                     List<String[]> traitList = new ArrayList<>();
@@ -387,6 +377,7 @@ public class GeneratorController {
                         }
                     }
                     graphics.dispose();
+
                     var metaData = metaFactory.getMeta(collection.getStartIndex() + iter, traitList);
                     NFT nft = new NFT(metaData, collection.getStartIndex() + iter, traitList, generate_disregard_bg.isSelected());
 
@@ -400,7 +391,6 @@ public class GeneratorController {
                         writeImageFile(nft, nftFile);
                         ++iter;
                     }
-
                     if (loop > (iter + (collection.getSize() * 2))) {  //Check for Stall (Too many duplicate generations)
                         stopGen = true;
                         blockGen = false;
@@ -455,40 +445,49 @@ public class GeneratorController {
         }
     }
 
-    public boolean writeJsonFile(NFT nft, String fileName) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collection.getOutputDirectory() + "/"
-                + fileName + ".json"), true));
+    public boolean writeJsonFile(NFT nft, String fileName) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collection.getOutputDirectory() + "/"
+                + fileName + ".json"), true))) {
+            pw.append(Util.fixPretty(gson.toJson(nft.getMetaData())));
+            return pw.checkError();
+        } catch (IOException e) {
 
-        pw.append(Util.fixPretty(gson.toJson(nft.getMetaData())));
-        pw.close();
-
-        return pw.checkError();
+        }
+        return true;
     }
 
-    private boolean writeDataFile(String nftFile, List<String[]> traits) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collection.getOutputDirectory() + "/"
-                + collection.getName() + ".txt"), true));
+    private boolean writeDataFile(String nftFile, List<String[]> traits) {
 
-        pw.append(nftFile);
-        for (String[] s : traits) {
-            pw.append(",").append(s[1]);
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(
+                collection.getOutputDirectory() + "/" + collection.getName() + ".txt", true))) {
+
+            pw.append(nftFile);
+            for (String[] s : traits) {
+                pw.append(",").append(s[1]);
+            }
+            pw.append("\n");
+            return pw.checkError();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        pw.append("\n");
-        pw.close();
-
-        return pw.checkError();
+        return true;
     }
 
-    private boolean writeDataHeader(File collectionDir, String collectionName, List<String> layers) throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collectionDir + "/" + collectionName + ".txt"), true));
-        pw.append("FileName,");
-        for (String s : layers) {
-            pw.append(",").append(s);
-        }
-        pw.append("\n");
-        pw.close();
+    private boolean writeDataHeader(File collectionDir, String collectionName, List<String> layers) {
 
-        return pw.checkError();
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(
+                collectionDir + "/" + collectionName + ".txt", true))) {
+
+            pw.append("FileName,");
+            for (String s : layers) {
+                pw.append(",").append(s);
+            }
+            pw.append("\n");
+            return pw.checkError();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     private void resetImageCount() {
@@ -513,21 +512,14 @@ public class GeneratorController {
         layerInFocus.getImageList().add((noneImage.genNone(collection.getWidth(), collection.getHeight())));
     }
 
-
     public void importConfig(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(jsonFilter);
-        File file = fileChooser.showOpenDialog(Main.stage);
-        Util.importSettings(file);
+        Serialize.importSettings(Util.openFile(Util.FileFilter.JSON));
         collectionController.init();
         init();
 
     }
 
     public void exportConfig(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(jsonFilter);
-        File file = fileChooser.showSaveDialog(Main.stage);
-        Util.exportSettings(collection,file.getAbsolutePath());
+        Serialize.exportSettings(collection, Util.saveFile(Util.FileFilter.JSON).getAbsolutePath());
     }
 }

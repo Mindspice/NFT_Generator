@@ -6,15 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
 import json.MetaFactory;
-import logic.Util;
+import utility.Util;
 import main.Main;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CollectionController implements Initializable {
 
@@ -80,7 +80,8 @@ public class CollectionController implements Initializable {
             traits.add(new String[]{"Example Type" + i, "Example Value" + i});
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        var meta = metaFactory.getMeta(42069, traits);
+        var meta = metaFactory.getMeta(ThreadLocalRandom.current()
+                .nextInt(0,collection.getSize()), traits);
         meta_test_window.setText(gson.toJson(meta));
     }
 
@@ -163,12 +164,8 @@ public class CollectionController implements Initializable {
     }
 
     public void OpenNameList(ActionEvent actionEvent) {
-        FileChooser.ExtensionFilter extFilter
-                = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showOpenDialog(Main.stage);
+            File file = Util.openFile(Util.FileFilter.TXT);
             collection.setNameList(file);
             name_list.setText(file.getPath());
             if (collection.getNameGen() == null) {

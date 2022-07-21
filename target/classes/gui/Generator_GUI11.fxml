@@ -18,7 +18,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <TabPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="generator.GeneratorController">
    <tabs>
       <Tab text="Generator">
@@ -1105,6 +1104,15 @@
                         </VBox>
                      </children>
                   </HBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab text="Untitled Tab">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+
                </children>
             </AnchorPane>
         </content>

@@ -1,12 +1,7 @@
-package logic;
+package utility;
 
 import imagefile.ImageFile;
-import layer.Layer;
 import javafx.collections.ObservableList;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 
 public class WeightedRandom {
@@ -18,7 +13,6 @@ public class WeightedRandom {
         for (ImageFile i : imageList) {
             totalWeight += i.getWeight();
         }
-
         int i = 0;
 
         for (double r = Math.random() * totalWeight; i < imageList.size() - 1; ++i) {
