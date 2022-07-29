@@ -10,7 +10,6 @@ public class NFT {
     private int index;
     private List<String[]> traitList;
     private String id;
-    private File finalImage;
     private JsonContainers.MetaData metaData;
 
     public NFT(JsonContainers.MetaData metaData,int index, List<String[]> traits, boolean disregardDB) {
@@ -45,11 +44,6 @@ public class NFT {
     public List<String[]> getTraitList() {
         return traitList;
     }
-
-    public File getFinalImage() {
-        return finalImage;
-    }
-
 
     public String getName () {
         return name;

@@ -56,16 +56,16 @@ public class GeneratorController {
 
     public static CollectionController collectionController;
 
-    private Collection collection = Main.collection;
-    private MetaFactory metaFactory = new MetaFactory(collection);
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private ObservableList<Layer> layerList = collection.getLayerList();
+    public static final Collection collection = new Collection();
+    private final MetaFactory metaFactory = new MetaFactory(collection);
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final ObservableList<Layer> layerList = collection.getLayerList();
     ;
     private Layer layerInFocus;
     private ImageFile imageInFocus;
     private boolean stopGen = false;
     private boolean blockGen = false;
-    private Task generate;
+    private Task<Void> generate;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         init();
@@ -174,12 +174,16 @@ public class GeneratorController {
         try {
             File directory = Util.openDirectory();
             File[] directoryCont = directory.listFiles();
+            if (directoryCont == null) {
+                Util.error(Util.ErrorType.NO_FILES,"");
+                return;
+            }
             for (File f : directoryCont) {
                 if (f.getName().endsWith(".png")) {
                     layerInFocus.addImage(f.getName(), f, 1, 0);
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             Util.exception(Util.ErrorType.DIR);
             e.printStackTrace();
         }
@@ -327,13 +331,13 @@ public class GeneratorController {
         }
     }
 
-    private Task generator() {
+    private Task<Void> generator() {
 
-        return new Task() {
+        return new Task<Void>() {
             @Override
-            protected Object call() {
+            protected Void call() {
                 stopGen = false;
-                int iter = 1;
+                int iter = 0;
                 int loop = 0;
                 HashMap<String, Integer> dupeTable = new HashMap<>();
                 List<String> layerNames = new ArrayList<>();
@@ -344,7 +348,7 @@ public class GeneratorController {
                 writeDataHeader(collection.getOutputDirectory(), collection.getName(), layerNames);
 
 
-                while (iter <= collection.getSize() && !stopGen) {
+                while (iter + collection.getStartIndex() <= collection.getSize() && !stopGen) {
                     List<String[]> traitList = new ArrayList<>();
                     BufferedImage nftFile = new BufferedImage(collection.getWidth(), collection.getHeight(), BufferedImage.TYPE_INT_ARGB);
                     Graphics graphics = nftFile.getGraphics();
@@ -359,7 +363,7 @@ public class GeneratorController {
                                 while (muteTable.get(image.getMuteGroup()) != null) {
                                     image = WeightedRandom.getWeightedRandom(l.getImageList());
                                     i++;
-                                    if (i < collection.getSize() / 4) return false;
+                                    //if (i == collection.getSize() / 4) //return false;
                                 }
                             }
                             muteTable.put(image.getMuteGroup(), true);
@@ -398,14 +402,14 @@ public class GeneratorController {
                         generation_progress.progressProperty().unbind();
                         Util.error(Util.ErrorType.STALL, "");
                         loop = 0;
-                        return false;
+                       //return false;
                     }
                     ++loop;
                     updateProgress(iter, collection.getSize());
                 }
                 resetImageCount();
                 blockGen = false;
-                return true;
+                return null;
             }
         };
     }

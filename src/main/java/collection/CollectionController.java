@@ -2,6 +2,7 @@ package collection;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import generator.GeneratorController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +31,7 @@ public class CollectionController implements Initializable {
     @FXML
     public Button open_name_list, meta_test, meta_save;
 
-    Collection collection = Main.collection;
+    Collection collection = GeneratorController.collection;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         init();

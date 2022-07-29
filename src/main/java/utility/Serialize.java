@@ -3,6 +3,7 @@ package utility;
 import collection.Collection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import generator.GeneratorController;
 import imagefile.ImageFile;
 import json.JsonContainers;
 import layer.Layer;
@@ -89,8 +90,8 @@ public class Serialize {
 
     public static void importSettings(File file) {
         Gson gson = new Gson();
+        Collection collection = GeneratorController.collection;
 
-        Collection collection = Main.collection;
         try {
             var reader = Files.newBufferedReader(Path.of(file.getAbsolutePath()));
             var collectionSettings

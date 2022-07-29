@@ -43,7 +43,6 @@ public class JsonContainers {
         }
     }
 
-    // Serialization containers
     public static class CollectionSettings {
         public String name = "";
         public List<String[]> colAttributes = new ArrayList<>();
@@ -80,6 +79,22 @@ public class JsonContainers {
         public double weight;
         public int max;
         public int muteGroup;
+    }
+
+    public static class MintRpc {
+        public int wallet_id;
+        public List<String> uris;
+        public String hash;
+        public List<String> meta_uris;
+        public String meta_hash;
+        public List<String> license_uris;
+        public String license_hash;
+        public String royalty_address;
+        public int royalty_percentage;
+        public String target_address;
+        public int edition_number;
+        public int edition_count;
+        public int fee;
     }
 }
 

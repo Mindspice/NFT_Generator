@@ -21,7 +21,6 @@ public class Main extends Application {
 
     public static Stage stage;
     public static Scene scene;
-    public static Collection collection;
     public void start(Stage stage) throws Exception {
 
         final int initWidth = 1600;
@@ -73,7 +72,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws InterruptedException {
-        collection = new Collection();
         launch(args);
     }
 

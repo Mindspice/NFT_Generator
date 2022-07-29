@@ -8,6 +8,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import main.Main;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ import java.util.Scanner;
 import static utility.Util.ErrorType.*;
 
 public class Util {
-
+    private static String lastOpened;
     public enum ErrorType {
         INPUT,
         VALUE,
@@ -33,7 +34,17 @@ public class Util {
         EXIT,
         STOP,
         NAME_LIST,
+        NO_FILES,
         DIM,
+        URL,
+        SIZE_IMAGE,
+        SIZE_META,
+        SIZE_DIR,
+        SIZE_MISMATCH,
+        NO_VALIDATION,
+        INVALID_HASH,
+        NO_HASH
+
     }
 
     public enum FileFilter {
@@ -71,6 +82,7 @@ public class Util {
         }
     }
 
+
     public static void error(ErrorType type, String input) {
 
         Alert error = new Alert(Alert.AlertType.ERROR);
@@ -84,6 +96,15 @@ public class Util {
             case STALL -> error.setContentText("Generation Stalled. Likely All Unique Combinations Have Been Exhausted");
             case LAYER -> error.setContentText("Create A Layer First");
             case DIM -> error.setContentText(" Dimensions Are Not Set");
+            case NO_FILES -> error.setContentText("Directory Contains No Files");
+            case URL -> error.setContentText("Invalid URL, Must Be Https To Validate\n" + input);
+            case SIZE_IMAGE -> error.setContentText("Mis-Matched Lengths Of Image URI Lists");
+            case SIZE_META -> error.setContentText("Mis-Matched Lengths Of Meta URI Lists");
+            case SIZE_MISMATCH -> error.setContentText("Length of Image And Meta URI List Are Not The Same");
+            case NO_VALIDATION -> error.setContentText("Nothing To Validate, Add Lists");
+            case INVALID_HASH -> error.setContentText("Invalid " + input + " Hash(s) Found");
+            case SIZE_DIR -> error.setContentText("Contents Of " + input + " Directory Less Than Image URI List");
+            case NO_HASH -> error.setContentText("Must validate At Least One Hash To Mint");
         }
         error.showAndWait();
     }
@@ -129,7 +150,11 @@ public class Util {
     public static File openFile(FileFilter ff) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(ff.ext);
+        if (lastOpened != null) {
+            fileChooser.setInitialDirectory(new File(lastOpened));
+        }
         File file = fileChooser.showOpenDialog(Main.stage);
+        lastOpened = file.getParent();
         return file;
     }
 
@@ -141,8 +166,12 @@ public class Util {
 
     public static File openDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        return directoryChooser.showDialog(Main.stage);
-
+        if (lastOpened != null) {
+            directoryChooser.setInitialDirectory(new File(lastOpened));
+        }
+        File dir = directoryChooser.showDialog(Main.stage);
+        lastOpened = dir.getParent();
+        return dir;
     }
 
     public static List<String> readToList(File file) {

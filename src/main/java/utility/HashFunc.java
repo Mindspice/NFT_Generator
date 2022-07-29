@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 
 public class HashFunc {
 
-    static String getHash(byte[] bytes) throws Exception {
+    public static String getHash(byte[] bytes) throws Exception {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(bytes);
         byte[] hash = md.digest();
@@ -22,13 +22,13 @@ public class HashFunc {
         return hexString.toString();
     }
 
-    static byte[] fetchBytes(URL url) {
+    public static byte[] fetchBytes(URL url) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         URLConnection conn;
         try {
             conn = url.openConnection();
-            conn.setConnectTimeout(10000);
-            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(15000);
             conn.connect();
         } catch (IOException e) {
             return null;

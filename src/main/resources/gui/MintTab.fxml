@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
@@ -12,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="871.0" prefWidth="1600.0"  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mint.MintController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="871.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mint.MintController">
    <children>
       <HBox layoutX="687.0" layoutY="273.0" prefHeight="871.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -141,7 +141,7 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="imt_list_4" disable="true" prefHeight="25.0" prefWidth="470.0">
+                        <TextField fx:id="img_list_4" disable="true" prefHeight="25.0" prefWidth="470.0">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -296,7 +296,7 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="mata_list_4" disable="true" prefHeight="25.0" prefWidth="470.0">
+                        <TextField fx:id="meta_list_4" disable="true" prefHeight="25.0" prefWidth="470.0">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -361,7 +361,7 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="license_1" disable="true" prefHeight="25.0" prefWidth="470.0">
+                        <TextField fx:id="license_1" prefHeight="25.0" prefWidth="470.0">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -391,7 +391,7 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="license_2" disable="true" prefHeight="25.0" prefWidth="470.0">
+                        <TextField fx:id="license_2" prefHeight="25.0" prefWidth="470.0">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -421,7 +421,7 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="license_3" disable="true" prefHeight="25.0" prefWidth="470.0">
+                        <TextField fx:id="license_3" prefHeight="25.0" prefWidth="470.0">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -451,7 +451,7 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="license_4" disable="true" prefHeight="25.0" prefWidth="470.0">
+                        <TextField fx:id="license_4" prefHeight="25.0" prefWidth="470.0">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -481,7 +481,7 @@
                               <Font name="Courier New Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="license_5" disable="true" prefHeight="25.0" prefWidth="470.0">
+                        <TextField fx:id="license_5" prefHeight="25.0" prefWidth="470.0">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -593,6 +593,11 @@
                         <Insets left="704.0" top="20.0" />
                      </VBox.margin>
                   </Button>
+                  <ProgressBar fx:id="hash_progress" prefHeight="63.0" prefWidth="150.0" progress="0.0">
+                     <VBox.margin>
+                        <Insets left="647.0" top="5.0" />
+                     </VBox.margin>
+                  </ProgressBar>
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -745,7 +750,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="editions_amount" prefHeight="25.0" prefWidth="42.0">
+                        <TextField fx:id="editions_amount" prefHeight="25.0" prefWidth="42.0" text="1">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -768,91 +773,6 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Separator>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="800.0">
-                     <children>
-                        <Label prefHeight="25.0" prefWidth="198.0" text="Python Mint Script">
-                           <font>
-                              <Font name="Courier New Bold" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <Separator layoutX="10.0" layoutY="35.0" prefWidth="841.0" />
-                  <Label prefHeight="76.0" prefWidth="787.0" text="When running script be sure to be synced on the wallet on which you wish to mint from, by either doing &quot;chia show wallet&quot; on its finger print, or selecting it. You can also use the GUI, but make sure it is since on the proper wallet fingerprint as well." wrapText="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Separator prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </Separator>
-                  <HBox layoutX="15.0" layoutY="193.0" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <RadioButton fx:id="is_linux_script" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Linux* Script">
-                           <font>
-                              <Font name="Courier New Bold" size="14.0" />
-                           </font>
-                        </RadioButton>
-                        <Label prefHeight="25.0" prefWidth="669.0" text=" Calls chia directly if added to PATH or if running  (venv).  *Can work on windows if chia is set in PATH" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="5.0" top="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox layoutX="15.0" layoutY="254.0" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <RadioButton fx:id="is_windows_script" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Windows Script">
-                           <font>
-                              <Font name="Courier New Bold" size="14.0" />
-                           </font>
-                        </RadioButton>
-                        <Label prefHeight="25.0" prefWidth="530.0" text="Call chia via windows wrapper (Chia installed via windows installer)" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="5.0" top="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox layoutX="15.0" layoutY="289.0" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <Label prefHeight="25.0" prefWidth="227.0" text="Daemon Directory(Windows): ">
-                           <font>
-                              <Font name="Courier New Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="daemon_dir" disable="true" prefHeight="25.0" prefWidth="511.0" />
-                        <Button mnemonicParsing="false" onAction="#openDeamonDir" text="Open">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="5.0" top="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox layoutX="15.0" layoutY="319.0" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <Label prefHeight="25.0" prefWidth="649.0" text="Example: C:\Users\&quot;Your User Name&quot;\AppData\Local\chia-blockchain\app-x.x.x\resources\app.asar.unpacked\daemon">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <Separator layoutX="10.0" layoutY="223.0" prefWidth="841.0" />
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="226.0" prefHeight="25.0" prefWidth="800.0">
                      <children>
                         <Label prefHeight="25.0" prefWidth="225.0" text="Generate Mint Setup">
@@ -863,37 +783,6 @@
                      </children>
                   </HBox>
                   <Separator layoutX="10.0" layoutY="251.0" prefWidth="841.0" />
-                  <HBox layoutX="15.0" layoutY="405.0" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <RadioButton fx:id="valid_hashes" mnemonicParsing="false" prefHeight="25.0" selected="true" text="Validate Hashes">
-                           <font>
-                              <Font name="Courier New Bold" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </RadioButton>
-                        <RadioButton fx:id="abort_on_error" layoutX="172.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" text="Abort On Hash Mis-Match">
-                           <font>
-                              <Font name="Courier New Bold" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                        <RadioButton fx:id="editions_as_file" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" text="Edition Sets As Own File">
-                           <font>
-                              <Font name="Courier New Bold" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </RadioButton>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="5.0" top="5.0" />
-                     </VBox.margin>
-                  </HBox>
                   <HBox layoutX="15.0" layoutY="319.0" prefHeight="25.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="25.0" prefWidth="149.0" text="Output Directory:">
@@ -914,19 +803,9 @@
                   </HBox>
                   <HBox layoutX="15.0" layoutY="459.0" prefHeight="25.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#makeGenScript" text="Create Generation Script">
+                        <Button mnemonicParsing="false" onAction="#generateRpc" text="Create Generation RPCs">
                            <HBox.margin>
                               <Insets />
-                           </HBox.margin>
-                        </Button>
-                        <Button layoutX="15.0" layoutY="10.0" mnemonicParsing="false" onAction="#makeJsonList" text="Create Generation Json List">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button layoutX="161.0" layoutY="10.0" mnemonicParsing="false" onAction="#makeBothScripts" text="Create Both">
-                           <HBox.margin>
-                              <Insets left="5.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -949,7 +828,7 @@
                      </children>
                   </HBox>
                   <Separator layoutX="10.0" layoutY="492.0" prefWidth="841.0" />
-                  <TextArea fx:id="error_console" editable="false" prefHeight="366.0" prefWidth="700.0" translateX="-1.5" translateY="-1.5">
+                  <TextArea fx:id="error_console" editable="false" prefHeight="527.0" prefWidth="797.0" translateX="-1.5" translateY="-1.5">
                      <VBox.margin>
                         <Insets top="1.0" />
                      </VBox.margin>

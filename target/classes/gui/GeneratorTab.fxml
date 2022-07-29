@@ -381,9 +381,17 @@
                                     </HBox>
                                     <HBox prefHeight="33.0" prefWidth="496.0">
                                        <children>
+                                          <RadioButton minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Generate Metadata">
+                                             <font>
+                                                <Font name="Courier New Bold" size="14.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </RadioButton>
                                           <Button mnemonicParsing="false" onAction="#importConfig" text="Import Config">
                                              <HBox.margin>
-                                                <Insets left="303.0" />
+                                                <Insets left="130.0" />
                                              </HBox.margin>
                                           </Button>
                                           <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#exportConfig" text="Export Config">
