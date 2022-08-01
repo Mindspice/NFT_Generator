@@ -18,7 +18,8 @@ public class MetaFactory {
         colMeta.id = collection.getId();
 
         if (collection.getFlags().seriesAsAttribute) {
-            collection.getColAttributes().add(new String[]{"Series #", index + " of "+ collection.getSize()});
+            var attr = new JsonContainers.Attribute("Series #", index + " of "+ collection.getSize());;
+            colMeta.attributes.add( attr);
         }
         for (String[] s : collection.getColAttributes()) {
             colMeta.attributes.add(new JsonContainers.Attribute(s[0],s[1]));

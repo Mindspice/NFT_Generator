@@ -38,6 +38,7 @@ public class GeneratorController {
 
     @FXML
     public Button collection_settings, generate_start, generate_stop, generate_test;
+    public RadioButton generate_meta;
     @FXML
     private ImageView image_window;
     @javafx.fxml.FXML
@@ -260,11 +261,10 @@ public class GeneratorController {
 
     // Sets directory to output finished collection files to
     @javafx.fxml.FXML
-    public void setOutputDir(ActionEvent actionEvent) {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        File directory = directoryChooser.showDialog(Main.stage);
-        collection.setOutputDirectory(directory);
-        collection_directory.setText(directory.toString());
+    public void setOutputDir(ActionEvent actionEvent) throws IOException {
+        File dir = Util.openDirectory();
+        collection.setOutputDirectory(dir);
+        collection_directory.setText(dir.toString());
     }
 
     // Generates a random test nft to image display window
@@ -363,16 +363,25 @@ public class GeneratorController {
                                 while (muteTable.get(image.getMuteGroup()) != null) {
                                     image = WeightedRandom.getWeightedRandom(l.getImageList());
                                     i++;
-                                    //if (i == collection.getSize() / 4) //return false;
+                                    if (i == collection.getSize() / 4) {
+                                        Util.error(Util.ErrorType.STALL,"");
+                                        break;
+                                    }
                                 }
+                                muteTable.put(image.getMuteGroup(), true);
                             }
-                            muteTable.put(image.getMuteGroup(), true);
 
-                            int j = 0; //handles the iterations of while loop to avoid endless, /4 is kind of random but should work
+
+                            int j = 0;
                             if (image.getMuteGroup() == 0) {
-                                while (image.getMax() != 0 && image.getMax() <= image.getCount() && j < collection.getSize() / 4) {
+                                while (image.getMax() != 0 && image.getMax() <= image.getCount()) {
                                     image = WeightedRandom.getWeightedRandom(l.getImageList());
                                     j++;
+                                    if (j == collection.getSize() / 4) {
+                                        Util.error(Util.ErrorType.STALL,"");
+                                        break;
+                                    }
+
                                 }
                             }
                             graphics.drawImage(image.getImage(), 0, 0, null);
@@ -441,57 +450,54 @@ public class GeneratorController {
             File finalImage = new File(collection.getOutputDirectory(), fileName + ".png");
             ImageIO.write(nftFile, "PNG", finalImage);
 
-            if (writeDataFile(finalImage.getCanonicalFile().toString(), nft.getTraitList())) throw new IOException();
-            if (writeJsonFile(nft, fileName)) throw new IOException();
+            writeDataFile(finalImage.getCanonicalFile().toString(), nft.getTraitList());
+            if (generate_meta.isSelected()) writeJsonFile(nft, fileName);
         } catch (IOException e) {
             Util.exception(Util.ErrorType.FILE);
             e.printStackTrace();
         }
     }
 
-    public boolean writeJsonFile(NFT nft, String fileName) {
-        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collection.getOutputDirectory() + "/"
+    public void writeJsonFile(NFT nft, String fileName) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(new File(collection.getOutputDirectory() + File.separator
                 + fileName + ".json"), true))) {
             pw.append(Util.fixPretty(gson.toJson(nft.getMetaData())));
-            return pw.checkError();
+            pw.checkError();
         } catch (IOException e) {
 
         }
-        return true;
     }
 
-    private boolean writeDataFile(String nftFile, List<String[]> traits) {
+    private void writeDataFile(String nftFile, List<String[]> traits) {
 
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(
-                collection.getOutputDirectory() + "/" + collection.getName() + ".txt", true))) {
+                collection.getOutputDirectory() + File.separator + collection.getName() + ".txt", true))) {
 
             pw.append(nftFile);
             for (String[] s : traits) {
                 pw.append(",").append(s[1]);
             }
             pw.append("\n");
-            return pw.checkError();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return true;
+
     }
 
-    private boolean writeDataHeader(File collectionDir, String collectionName, List<String> layers) {
+    private void writeDataHeader(File collectionDir, String collectionName, List<String> layers) {
 
         try (PrintWriter pw = new PrintWriter(new FileOutputStream(
-                collectionDir + "/" + collectionName + ".txt", true))) {
+                collectionDir + File.separator + collectionName + ".txt", true))) {
 
             pw.append("FileName,");
             for (String s : layers) {
                 pw.append(",").append(s);
             }
             pw.append("\n");
-            return pw.checkError();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
     private void resetImageCount() {
@@ -523,7 +529,7 @@ public class GeneratorController {
 
     }
 
-    public void exportConfig(ActionEvent actionEvent) {
+    public void exportConfig(ActionEvent actionEvent) throws IOException {
         Serialize.exportSettings(collection, Util.saveFile(Util.FileFilter.JSON).getAbsolutePath());
     }
 }

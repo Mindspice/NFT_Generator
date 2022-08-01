@@ -75,7 +75,7 @@ public class URIContainer {
 
         String imgHash = imgageHashes.get(0);
         for (int i = 1; i < imgageHashes.size(); ++i) {
-            if (!imgHash.equals(imgageHashes.get(i))) {
+            if (!imgHash.equals(imgageHashes.get(i)) || imgHash.equals(Util.nullHash)) {
                 imgErrors.add(imgFile == null ? imgURIs.get(i) : imgURIs.get(i-1));
                 error = true;
                 validImg = false;
@@ -108,7 +108,7 @@ public class URIContainer {
 
         String metaHash = metaHashes.get(0);
         for (int i = 1; i < metaHashes.size(); ++i) {
-            if (!metaHash.equals(metaHashes.get(i))) {
+            if (!metaHash.equals(metaHashes.get(i)) || metaHash.equals(Util.nullHash)) {
                 metaErrors.add(metaFile == null ? metaURIs.get(i) : metaURIs.get(i-1));
                 error = true;
                 validMeta = false;

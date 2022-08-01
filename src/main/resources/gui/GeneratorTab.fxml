@@ -147,7 +147,7 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                     <children>
-                                                        <Button fx:id="iamge_remove" mnemonicParsing="false" onAction="#removeImage" prefHeight="25.0" prefWidth="73.0" text="Remove">
+                                                        <Button fx:id="image_remove" mnemonicParsing="false" onAction="#removeImage" prefHeight="25.0" prefWidth="73.0" text="Remove">
                                                             <HBox.margin>
                                                                 <Insets left="5.0" />
                                                             </HBox.margin>
@@ -157,7 +157,7 @@
                                                                 <Insets left="370.0" />
                                                             </HBox.margin>
                                                         </Button>
-                                                        <Button fx:id="iamge_create_new" mnemonicParsing="false" onAction="#importImage" prefHeight="25.0" prefWidth="73.0" text="Open File">
+                                                        <Button fx:id="image_create_new" mnemonicParsing="false" onAction="#importImage" prefHeight="25.0" prefWidth="73.0" text="Open File">
                                                             <HBox.margin>
                                                                 <Insets left="10.0" right="10.0" />
                                                             </HBox.margin>
@@ -381,7 +381,7 @@
                                     </HBox>
                                     <HBox prefHeight="33.0" prefWidth="496.0">
                                        <children>
-                                          <RadioButton minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Generate Metadata">
+                                          <RadioButton fx:id="generate_meta" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" selected="true" text="Generate Metadata">
                                              <font>
                                                 <Font name="Courier New Bold" size="14.0" />
                                              </font>

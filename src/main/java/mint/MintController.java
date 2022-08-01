@@ -183,11 +183,11 @@ public class MintController implements Initializable {
                             bind(task.progressProperty());
                         }
                     }
-
                     @Override
                     protected double computeValue() {
-                        return hashTasks.stream().mapToDouble(Task::getProgress).sum()
-                                / (((ThreadPoolExecutor) hashExecutor).getActiveCount() + 1);
+                       int activeCount = (((ThreadPoolExecutor) hashExecutor).getActiveCount());
+                        return (hashTasks.stream().mapToDouble(Task::getProgress).sum() - threads + activeCount)
+                                / activeCount;
                     }
                 });
 
@@ -229,8 +229,6 @@ public class MintController implements Initializable {
         t.start();
 
     }
-
-
 
     private List<Task<Void>> getHashTasks(URIContainer[] uriContainers) {
         List<Task<Void>> taskList = new ArrayList<>();
@@ -285,7 +283,10 @@ public class MintController implements Initializable {
             }
         }
 
-        if (metaLength == 0 && imgLength == 0) Util.error(Util.ErrorType.NO_VALIDATION, "");
+        if (metaLength == 0 && imgLength == 0) {
+            Util.error(Util.ErrorType.NO_VALIDATION, "");
+            return null;
+        }
 
         var uriContainers = new URIContainer[imgLength];
 
@@ -303,11 +304,8 @@ public class MintController implements Initializable {
                     uriContainers[j].imgURIs.add(mintSettings.imageURIs[i].get(j));
                 }
             }
+
             if (metaFlags[i].isSelected()) {
-                if (metaLength != imgLength) {
-                    Util.error(Util.ErrorType.SIZE_MISMATCH, "");
-                    return null;
-                }
                 for (int j = 0; j < metaLength; ++j) {
                     if (mintSettings.metaURIs[i] == null
                             || mintSettings.metaURIs[i].get(j) == null
@@ -316,6 +314,11 @@ public class MintController implements Initializable {
                     uriContainers[j].metaURIs.add(mintSettings.metaURIs[i].get(j));
                 }
             }
+        }
+
+        if (metaLength != imgLength) {
+            Util.error(Util.ErrorType.SIZE_MISMATCH, "");
+            return null;
         }
 
         if (valid_image_dir.isSelected()) {
@@ -369,7 +372,6 @@ public class MintController implements Initializable {
                 Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private List<byte[]> getByteList(File directory, String ext) {
@@ -493,9 +495,8 @@ public class MintController implements Initializable {
             e.printStackTrace();
             Util.exception(Util.ErrorType.FILE);
         }
-        error_console.appendText("\nRPC List Saved");
+        error_console.appendText("\nRPC List Saved\n");
     }
-
 
 }
 

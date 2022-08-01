@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import static utility.Util.ErrorType.FILE;
 
 public class Serialize {
-    public static void exportSettings(Collection collection, String file) {
+    public static void exportSettings(Collection collection, String file) throws IOException {
         var collectionSettings = new JsonContainers.CollectionSettings();
         collectionSettings.name = collection.getName();
 
@@ -40,7 +40,7 @@ public class Serialize {
         collectionSettings.startIndex = collection.getStartIndex();
 
         if (collection.getOutputDirectory() != null) {
-            collectionSettings.outputDirectory = collection.getOutputDirectory().getAbsolutePath();
+            collectionSettings.outputDirectory = collection.getOutputDirectory().toString();
         }
         collectionSettings.size = collection.getSize();
         collectionSettings.width = collection.getWidth();
@@ -62,7 +62,7 @@ public class Serialize {
                         image.muteGroup = i.getMuteGroup();
 
                         if (i.getFile() != null) {
-                            image.file = i.getFile().getAbsolutePath();
+                            image.file = i.getFile().getCanonicalPath();
                         }
                         layer.imageList.add(image);
                     }
@@ -73,7 +73,7 @@ public class Serialize {
         collectionSettings.flags = collection.getFlags();
         if (collection.getNameGen() != null) {
             var nameGen = new JsonContainers.NameGenSettings();
-            nameGen.nameList = collection.getNameList().getAbsolutePath();
+            nameGen.nameList = collection.getNameList().getCanonicalPath();
             nameGen.wordCount = collection.getNameGen().getWordCount();
             collectionSettings.nameGenSettings = nameGen;
         }
@@ -93,7 +93,7 @@ public class Serialize {
         Collection collection = GeneratorController.collection;
 
         try {
-            var reader = Files.newBufferedReader(Path.of(file.getAbsolutePath()));
+            var reader = Files.newBufferedReader(Path.of(file.getCanonicalPath()));
             var collectionSettings
                     = gson.fromJson(reader, JsonContainers.CollectionSettings.class);
 
