@@ -285,7 +285,7 @@ public class GeneratorController {
                     while (muteTable.get(image.getMuteGroup()) != null) {
                         image = WeightedRandom.getWeightedRandom(l.getImageList());
                         i++;
-                        if (i == collection.getSize() / 4) {
+                        if (i == collection.getSize() / 100) {
                             return;
                         }
                     }
@@ -377,7 +377,7 @@ public class GeneratorController {
                                 while (image.getMax() != 0 && image.getMax() <= image.getCount()) {
                                     image = WeightedRandom.getWeightedRandom(l.getImageList());
                                     j++;
-                                    if (j == collection.getSize() / 4) {
+                                    if (j == collection.getSize() / 10) {
                                         Util.error(Util.ErrorType.STALL,"");
                                         break;
                                     }
@@ -523,13 +523,13 @@ public class GeneratorController {
     }
 
     public void importConfig(ActionEvent actionEvent) {
-        Serialize.importSettings(Util.openFile(Util.FileFilter.JSON));
-        collectionController.init();
-        init();
+//        Serialize.importSettings(Util.openFile(Util.FileFilter.JSON));
+//        collectionController.init();
+//        init();
 
     }
 
     public void exportConfig(ActionEvent actionEvent) throws IOException {
-        Serialize.exportSettings(collection, Util.saveFile(Util.FileFilter.JSON).getAbsolutePath());
+//        Serialize.exportSettings(collection, Util.saveFile(Util.FileFilter.JSON).getAbsolutePath());
     }
 }
